@@ -1,3 +1,5 @@
+const { readRaw } = require('../../utils/file-io');
+
 const letterA = 'a'.charCodeAt(0);
 
 const toBase10 = base26 => [...base26].reduce(
@@ -43,7 +45,7 @@ const findNextValidPassword = password => {
   return password;
 };
 
-const currentPassword = require('./input');
+const currentPassword = readRaw('input.txt');
 const nextPassword = findNextValidPassword(currentPassword);
 const nextNextPassword = findNextValidPassword(nextPassword);
 

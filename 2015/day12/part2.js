@@ -1,3 +1,5 @@
+const { readRaw } = require('../../utils/file-io');
+
 const sumExcludingRedObjects = json => {
   if (json instanceof Array) {
     return json.reduce((sum, item) => sum + sumExcludingRedObjects(item), 0);
@@ -12,6 +14,6 @@ const sumExcludingRedObjects = json => {
   return parseInt(json) || 0;
 };
 
-const json = JSON.parse(require('fs').readFileSync('input.txt', 'utf8'));
+const json = JSON.parse(readRaw('input.txt'));
 
 console.log(sumExcludingRedObjects(json));

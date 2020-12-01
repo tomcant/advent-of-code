@@ -1,3 +1,5 @@
+const { readRaw } = require('../../utils/file-io');
+
 const nextTerm = term => {
   let [next, count, i] = ['', 1, 1];
 
@@ -20,5 +22,6 @@ const nthTermFrom = (term, n) => {
   return term;
 };
 
-console.log(nthTermFrom(require('./input'), 40).length);
-console.log(nthTermFrom(require('./input'), 50).length);
+const term = readRaw('input.txt');
+
+console.log(nthTermFrom(term, 40).length, nthTermFrom(term, 50).length);

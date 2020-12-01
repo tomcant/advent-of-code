@@ -1,1 +1,3 @@
-console.log(require('fs').readFileSync('input.txt', 'utf8').match(/-?\d+/g).reduce((sum, n) => sum + n / 1, 0));
+const { readRaw } = require('../../utils/file-io');
+
+console.log(readRaw('input.txt').match(/-?\d+/g).reduce((sum, n) => sum + +n, 0));
