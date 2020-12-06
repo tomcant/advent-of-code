@@ -1,4 +1,4 @@
-const { readRaw } = require('../../utils/file-io');
+const { readGroupsRaw } = require('../../utils/file-io');
 
 const containsFields = (passport, fields) => fields.reduce(
   (containsFields, field) => containsFields && field in passport,
@@ -42,13 +42,13 @@ const part2 = passports => countValidPassports(passports, [
 
 const passports = [];
 
-readRaw('input.txt')
-  .split('\n\n')
-  .forEach(passport => void passports.push(
+readGroupsRaw('input.txt').forEach(
+  passport => void passports.push(
     passport
       .match(/([^\s]+):([^\s]+)/g)
       .map(keyValue => keyValue.split(':'))
       .reduce((passport, [key, value]) => Object.assign(passport, { [key]: value }), {})
-  ));
+  )
+);
 
 console.log(part1(passports), part2(passports));
