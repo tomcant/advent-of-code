@@ -43,7 +43,7 @@ const arrangeTiles = tiles => {
 
           if (fits(tile)) {
             arranged.push(tile);
-            const arrangement = arrange(tile);
+            const arrangement = arrange();
 
             if (arrangement) {
               return arrangement;
