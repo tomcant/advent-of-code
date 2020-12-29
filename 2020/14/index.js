@@ -2,8 +2,8 @@ const { readLines } = require('../../utils/file-io');
 
 class Program {
   #instructions = [];
+  #memory = new Map();
   #mask = null;
-  #memory = {};
 
   constructor(instructions, runInstruction) {
     this.#instructions = instructions.map(([lhs, rhs]) => {
@@ -15,10 +15,7 @@ class Program {
 
       return () => {
         const { value, addresses } = runInstruction(+rhs, this.#mask, address);
-
-        for (const address of addresses) {
-          this.#memory[address] = value;
-        }
+        addresses.forEach(address => void this.#memory.set(address, value));
       };
     });
   }
@@ -32,7 +29,7 @@ class Program {
   }
 }
 
-const sumMemory = program => Object.values(program.memory).reduce((sum, n) => sum + n, 0);
+const sumMemory = program => [...program.memory].reduce((sum, [, value]) => sum + value, 0);
 
 const part1 = instructions => {
   const program = new Program(instructions, (value, mask, address) => {
@@ -66,10 +63,12 @@ const part2 = instructions => {
       return [baseAddress];
     }
 
-    const [head, tail] = [floating[0], floating.slice(1)];
+    const [head, ...tail] = floating;
 
-    return enumerateAddresses(baseAddress + 2 ** head, tail)
-      .concat(enumerateAddresses(baseAddress, tail));
+    return [
+      ...enumerateAddresses(baseAddress, tail),
+      ...enumerateAddresses(baseAddress + 2 ** head, tail)
+    ];
   };
 
   const program = new Program(instructions, (value, mask, address) => {
