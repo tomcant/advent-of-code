@@ -40,15 +40,11 @@ const part2 = passports => countValidPassports(passports, [
   }
 ]);
 
-const passports = [];
-
-readGroupsRaw('input.txt').forEach(
-  passport => void passports.push(
-    passport
-      .match(/([^\s]+):([^\s]+)/g)
-      .map(keyValue => keyValue.split(':'))
-      .reduce((passport, [key, value]) => Object.assign(passport, { [key]: value }), {})
-  )
+const passports = readGroupsRaw('input.txt').map(
+  passport => passport
+    .match(/([^\s]+):([^\s]+)/g)
+    .map(keyValue => keyValue.split(':'))
+    .reduce((passport, [key, value]) => Object.assign(passport, { [key]: value }), {})
 );
 
 console.log(part1(passports), part2(passports));
