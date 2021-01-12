@@ -5,7 +5,7 @@ const resolvers = {
 
   '^\\D+$': ([wire], wires) => wires[wire] || null,
 
-  'NOT (.+)': ([, wire], wires) => undefined !== wires[wire] ? (2 << 15) + ~wires[wire] : null,
+  'NOT (.+)': ([, wire], wires) => undefined !== wires[wire] ? (1 << 16) + ~wires[wire] : null,
 
   '(\\d+) AND (\\D+)': ([, lhs, rhs], wires) => undefined !== wires[rhs] ? lhs & wires[rhs] : null,
 

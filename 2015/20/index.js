@@ -35,6 +35,6 @@ const findFirstHouseWithMinPresents = (minPresents, presentsPerHouse, maxPresent
 const part1 = minPresents => findFirstHouseWithMinPresents(minPresents, 10, Infinity);
 const part2 = minPresents => findFirstHouseWithMinPresents(minPresents, 11, 50);
 
-const minPresents = readRaw(process.argv[2]);
+const minPresents = readRaw('input.txt');
 
 console.log(part1(minPresents), part2(minPresents));
