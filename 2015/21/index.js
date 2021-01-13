@@ -27,29 +27,24 @@ const shop = {
   ],
 };
 
+const cartesianProduct = (...a) => a.reduce((a, b) => a.flatMap(d => b.map(e => [d, e].flat())));
 const sumField = (items, field) => items.reduce((sum, item) => sum + item[field], 0);
 
 function *playScenarios(boss) {
-  for (const weapon of shop.weapons) {
-    for (const armor of shop.armor) {
-      for (const ring1 of shop.rings) {
-        for (const ring2 of shop.rings) {
-          const items = [weapon, armor, ring1, ring2];
+  const possibilities = cartesianProduct(shop.weapons, shop.armor, shop.rings, shop.rings);
 
-          const scenario = {
-            boss: { ...boss },
-            player: {
-              health: 100,
-              damage: sumField(items, 'damage'),
-              armor: sumField(items, 'armor')
-            },
-            cost: sumField(items, 'cost')
-          };
+  for (const items of possibilities) {
+    const scenario = {
+      boss: { ...boss },
+      player: {
+        health: 100,
+        damage: sumField(items, 'damage'),
+        armor: sumField(items, 'armor')
+      },
+      cost: sumField(items, 'cost')
+    };
 
-          yield { scenario, winner: playScenario(scenario) };
-        }
-      }
-    }
+    yield { scenario, winner: playScenario(scenario) };
   }
 }
 
