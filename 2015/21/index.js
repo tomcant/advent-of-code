@@ -2,28 +2,28 @@ const { readLines } = require( '../../utils/file-io');
 
 const shop = {
   weapons: [
-    { cost: 8, damage: 4, armor: 0 },
-    { cost: 10, damage: 5, armor: 0 },
-    { cost: 25, damage: 6, armor: 0 },
-    { cost: 40, damage: 7, armor: 0 },
-    { cost: 74, damage: 8, armor: 0 }
+    { type: 'w', name: 'Dagger', cost: 8, damage: 4, armor: 0 },
+    { type: 'w', name: 'Shortsword', cost: 10, damage: 5, armor: 0 },
+    { type: 'w', name: 'Warhammer', cost: 25, damage: 6, armor: 0 },
+    { type: 'w', name: 'Longsword', cost: 40, damage: 7, armor: 0 },
+    { type: 'w', name: 'Greataxe', cost: 74, damage: 8, armor: 0 }
   ],
   armor: [
-    { cost: 0, damage: 0, armor: 0 },
-    { cost: 13, damage: 0, armor: 1 },
-    { cost: 31, damage: 0, armor: 2 },
-    { cost: 53, damage: 0, armor: 3 },
-    { cost: 75, damage: 0, armor: 4 },
-    { cost: 102, damage: 0, armor: 5 }
+    { type: 'a', name: 'None', cost: 0, damage: 0, armor: 0 },
+    { type: 'a', name: 'Leather', cost: 13, damage: 0, armor: 1 },
+    { type: 'a', name: 'Chainmail', cost: 31, damage: 0, armor: 2 },
+    { type: 'a', name: 'Splintmail', cost: 53, damage: 0, armor: 3 },
+    { type: 'a', name: 'Bandedmail', cost: 75, damage: 0, armor: 4 },
+    { type: 'a', name: 'Platemail', cost: 102, damage: 0, armor: 5 }
   ],
   rings: [
-    { cost: 0, damage: 0, armor: 0 },
-    { cost: 25, damage: 1, armor: 0 },
-    { cost: 50, damage: 2, armor: 0 },
-    { cost: 100, damage: 3, armor: 0 },
-    { cost: 20, damage: 0, armor: 1 },
-    { cost: 40, damage: 0, armor: 2 },
-    { cost: 80, damage: 0, armor: 3 }
+    { type: 'r', name: 'None', cost: 0, damage: 0, armor: 0 },
+    { type: 'r', name: 'Damage +1', cost: 25, damage: 1, armor: 0 },
+    { type: 'r', name: 'Damage +2', cost: 50, damage: 2, armor: 0 },
+    { type: 'r', name: 'Damage +3', cost: 100, damage: 3, armor: 0 },
+    { type: 'r', name: 'Defense +1', cost: 20, damage: 0, armor: 1 },
+    { type: 'r', name: 'Defense +2', cost: 40, damage: 0, armor: 2 },
+    { type: 'r', name: 'Defense +3', cost: 80, damage: 0, armor: 3 }
   ],
 };
 
@@ -31,7 +31,11 @@ const cartesianProduct = (...a) => a.reduce((a, b) => a.flatMap(d => b.map(e => 
 const sumField = (items, field) => items.reduce((sum, item) => sum + item[field], 0);
 
 function *playScenarios(boss) {
-  const possibilities = cartesianProduct(shop.weapons, shop.armor, shop.rings, shop.rings);
+  const possibilities = cartesianProduct(shop.weapons, shop.armor, shop.rings, shop.rings)
+    .filter(items => {
+      const [ring1, ring2] = items.filter(({ type }) => 'r' === type);
+      return ring1.name !== ring2.name;
+    });
 
   for (const items of possibilities) {
     const scenario = {
