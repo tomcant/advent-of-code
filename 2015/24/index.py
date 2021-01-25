@@ -15,29 +15,16 @@ def find_groups(weights, weight_per_group):
 def group_exists(weights, weight_per_group):
   return next(find_groups(weights, weight_per_group)) != None
 
-def find_min_qe(groups):
-  min_qe = math.inf
-
-  for g in groups:
-    qe = math.prod(g)
-    if qe < min_qe:
-      min_qe = qe
-
-  return min_qe
-
 def find_optimal_arrangement(weights, num_groups):
   weight_per_group = sum(weights) / num_groups
-  groups_of_size = []
-  last_group_size = None
+  min_qe = last_group_size = math.inf
 
   for group in find_groups(weights, weight_per_group):
-    if len(group) != last_group_size:
-      if groups_of_size:
-        return find_min_qe(groups_of_size)
-      groups_of_size = []
+    if len(group) > last_group_size and min_qe < math.inf:
+      return min_qe
 
     if group_exists(weights - set(group), weight_per_group):
-      groups_of_size.append(group)
+      min_qe = min(math.prod(group), min_qe)
 
     last_group_size = len(group)
 
