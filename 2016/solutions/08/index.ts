@@ -4,12 +4,24 @@ enum PixelState {
 }
 
 class Screen {
-  public pixels: PixelState[][] = [];
+  private constructor(private pixels: PixelState[][]) {}
 
-  constructor(width: number, height: number) {
+  public static fromPixels(pixels: PixelState[][]): Screen {
+    return new this(pixels);
+  }
+
+  public static fromWidthAndHeight(width: number, height: number): Screen {
+    const pixels: PixelState[][] = [];
+
     for (let i = 0; i < height; ++i) {
-      this.pixels.push(Array(width).fill(PixelState.Off));
+      pixels.push(Array(width).fill(PixelState.Off));
     }
+
+    return new this(pixels);
+  }
+
+  public clone(): Screen {
+    return Screen.fromPixels(this.pixels.map(line => [...line]));
   }
 
   public setPixel(x: number, y: number, state: PixelState): void {
@@ -33,10 +45,8 @@ class Screen {
   }
 
   public countOnPixels(): number {
-    return this.pixels.reduce(
-      (count, line) => count + line.reduce(
-        (count, pixel) => count + +(PixelState.On === pixel), 0
-      ),
+    return this.pixels.flat().reduce(
+      (count, pixel) => count + +(PixelState.On === pixel),
       0
     );
   }
@@ -59,13 +69,15 @@ class DrawRectangle implements Instruction {
   }
 
   public apply(screen: Screen): Screen {
+    const clone = screen.clone();
+
     for (let y = 0; y < this.height; ++y) {
       for (let x = 0; x < this.width; ++x) {
-        screen.setPixel(x, y, PixelState.On);
+        clone.setPixel(x, y, PixelState.On);
       }
     }
 
-    return screen;
+    return clone;
   }
 }
 
@@ -82,7 +94,7 @@ class RotateAxis implements Instruction {
   }
 
   public apply(screen: Screen): Screen {
-    return 'x' === this.axis ? this.rotateX(screen) : this.rotateY(screen);
+    return this['x' === this.axis ? 'rotateX' : 'rotateY'](screen.clone());
   }
 
   private rotateX(screen: Screen): Screen {
@@ -107,7 +119,10 @@ class RotateAxis implements Instruction {
 }
 
 const applyInstructions = (instructions: Instruction[]): Screen =>
-  instructions.reduce((screen, instruction) => instruction.apply(screen), new Screen(50, 6));
+  instructions.reduce(
+    (screen, instruction) => instruction.apply(screen),
+    Screen.fromWidthAndHeight(50, 6)
+  );
 
 export const part1 = (instructions: Instruction[]): number => applyInstructions(instructions).countOnPixels();
 export const part2 = (instructions: Instruction[]): string => '\n' + applyInstructions(instructions).toString();
