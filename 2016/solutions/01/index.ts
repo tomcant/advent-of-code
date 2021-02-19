@@ -1,3 +1,5 @@
+import Vec2d from '../../utils/vec2d';
+
 enum Direction {
   Left = 'L',
   Right = 'R'
@@ -5,38 +7,21 @@ enum Direction {
 
 type Instruction = [Direction, number];
 
-class Vec2d {
-  constructor(readonly x: number, readonly y: number) {}
+const rotateVec = (v: Vec2d, dir: Direction): Vec2d =>
+  dir === Direction.Left ? new Vec2d(-v.y, v.x) : new Vec2d(v.y, -v.x);
 
-  public add(v: Vec2d): Vec2d {
-    return new Vec2d(this.x + v.x, this.y + v.y);
-  }
-
-  public rotate(dir: Direction): Vec2d {
-    return dir === Direction.Left
-      ? new Vec2d(-this.y, this.x)
-      : new Vec2d(this.y, -this.x);
-  }
-
-  public manhattanDistance(): number {
-    return Math.abs(this.x) + Math.abs(this.y);
-  }
-
-  public toString(): string {
-    return `(${this.x}, ${this.y})`
-  }
-}
+const manhattanDistance = (v: Vec2d): number => Math.abs(v.x) + Math.abs(v.y);
 
 export const part1 = (instructions: Instruction[]): number => {
   let pos: Vec2d = new Vec2d(0, 0);
   let dir: Vec2d = new Vec2d(0, 1);
 
   for (const [rotDir, dist] of instructions) {
-    dir = dir.rotate(rotDir);
+    dir = rotateVec(dir, rotDir);
     pos = pos.add(new Vec2d(dir.x * dist, dir.y * dist));
   }
 
-  return pos.manhattanDistance();
+  return manhattanDistance(pos);
 };
 
 export const part2 = (instructions: Instruction[]): number => {
@@ -46,13 +31,13 @@ export const part2 = (instructions: Instruction[]): number => {
   const seen = new Set<string>();
 
   for (const [rotDir, dist] of instructions) {
-    dir = dir.rotate(rotDir);
+    dir = rotateVec(dir, rotDir);
 
     for (let i = 0; i < dist; ++i) {
       pos = pos.add(dir);
 
       if (seen.has(pos.toString())) {
-        return pos.manhattanDistance();
+        return manhattanDistance(pos);
       }
 
       seen.add(pos.toString());
