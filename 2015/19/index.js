@@ -26,7 +26,6 @@ const part2 = (replacements, molecule) => {
       if (next !== molecule) {
         molecule = next;
         steps += 1;
-        break;
       }
     }
   }
