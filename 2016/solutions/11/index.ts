@@ -1,4 +1,4 @@
-import Queue from '../../utils/queue'
+import Queue from '../../utils/queue';
 
 enum ComponentType {
   Microchip = 'm',

@@ -1,4 +1,4 @@
-import Queue from '../../utils/queue'
+import Queue from '../../utils/queue';
 
 type BotRef = number;
 type Bot = [number?, number?];
@@ -71,7 +71,7 @@ class ResolveBot implements Instruction {
   }
 }
 
-function* resolve (instructions: Instruction[]): IterableIterator<Factory> {
+const resolve = function* (instructions: Instruction[]): Generator<Factory> {
   const queue = new Queue<Instruction>(instructions);
   const factory: Factory = [[], []];
 

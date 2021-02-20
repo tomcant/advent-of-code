@@ -44,7 +44,7 @@ const countSetBits = (n: number): number => {
   return count;
 };
 
-function* exploreMap(favNum: number): IterableIterator<State> {
+const exploreMap = function* (favNum: number): Generator<State> {
   const startPos = new Vec2d(1, 1);
   const history = new Set<string>([startPos.toString()]);
   const queue = new Queue<Node>([{ pos: startPos, steps: 0 }]);
