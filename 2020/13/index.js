@@ -22,13 +22,13 @@ const part1 = (arrivalTime, busTimes) => {
 
 const part2 = busTimes => {
   /*
-    Solve for `time`:
-      time + offset1 === 0 (mod busTime1)
-      time + offset2 === 0 (mod busTime2)
-      .
-      .
-      time + offsetN === 0 (mod busTimeN)
-  */
+   * Solve for `time` where N is the number of buses:
+   *   time + offset1 ≡ 0 (mod busTime1)
+   *   time + offset2 ≡ 0 (mod busTime2)
+   *   .
+   *   .
+   *   time + offsetN ≡ 0 (mod busTimeN)
+   */
 
   const offsets = busTimes.map((busTime, offset) => busTime && [busTime, offset]).filter(Boolean);
   let [time, product] = [0, 1];
