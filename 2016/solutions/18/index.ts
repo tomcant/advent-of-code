@@ -4,13 +4,6 @@ enum Tile {
 }
 
 const countSafeTiles = (firstRow: string, numRows: number): number => {
-  const TRAP_SUMS = [
-    1, // 1 + 0 + 0 = left
-    3, // 1 + 2 + 0 = left + center
-    6, // 0 + 2 + 4 = center + right
-    4  // 0 + 0 + 4 = right
-  ];
-
   const countForRow = (row: string): number =>
     row.match(RegExp('\\' + Tile.Safe, 'g')).length;
 
@@ -21,15 +14,10 @@ const countSafeTiles = (firstRow: string, numRows: number): number => {
     let nextRow = '';
 
     for (let j = 0; j < prevRow.length; ++j) {
-      let trapSum = 0;
+      const left = j - 1 >= 0 && Tile.Trap === prevRow[j - 1];
+      const right = j + 1 < prevRow.length && Tile.Trap === prevRow[j + 1];
 
-      for (let k = j - 1; k <= j + 1; ++k) {
-        if (k >= 0 && k < prevRow.length && Tile.Trap === prevRow[k]) {
-          trapSum += 1 << k - j + 1;
-        }
-      }
-
-      nextRow += TRAP_SUMS.includes(trapSum) ? Tile.Trap : Tile.Safe;
+      nextRow += +left ^ +right ? Tile.Trap : Tile.Safe;
     }
 
     count += countForRow(nextRow);
