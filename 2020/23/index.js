@@ -27,7 +27,7 @@ class CupList {
     this.max = !this.max || value > this.max ? value : this.max;
 
     if (!this.head) {
-      this.head = this.prev = node.prev = node;
+      this.head = node.prev = node;
       return;
     }
 
