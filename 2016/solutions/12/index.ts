@@ -22,7 +22,7 @@ const run = (instructions: Instruction[], initialRegisters: Registers): Register
         break;
       case 'jnz':
         if (registers.get(args[0]) || +args[0]) {
-          idxIncrement = +args[1];
+          idxIncrement = registers.get(args[1]) || +args[1];
         }
         break;
     }
