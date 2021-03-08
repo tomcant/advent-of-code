@@ -11,6 +11,49 @@ type State = {
   history: Set<string>
 };
 
+export const parseInput = (input: string): number => Number(input);
+
+export const part1 = (favNum: number): number => {
+  for (const { node: { pos, steps } } of exploreMap(favNum)) {
+    if (pos.x === 31 && pos.y === 39) {
+      return steps;
+    }
+  }
+};
+
+export const part2 = (favNum: number): number => {
+  for (const { node: { steps }, history } of exploreMap(favNum)) {
+    if (steps === 50) {
+      return history.size;
+    }
+  }
+};
+
+const exploreMap = function* (favNum: number): Generator<State> {
+  const startPos = new Vec2d(1, 1);
+  const history = new Set<string>([startPos.toString()]);
+  const queue = new Queue<Node>([{ pos: startPos, steps: 0 }]);
+
+  while (!queue.isEmpty()) {
+    const node = queue.dequeue();
+
+    yield { node, history };
+
+    for (const neighbour of getNeighbouringPositions(node.pos, favNum)) {
+      const hash = neighbour.toString();
+
+      if (!history.has(hash)) {
+        history.add(hash);
+
+        queue.enqueue({
+          pos: neighbour,
+          steps: node.steps + 1
+        });
+      }
+    }
+  }
+}
+
 const getNeighbouringPositions = (pos: Vec2d, favNum: number): Vec2d[] => {
   const positions = [];
 
@@ -43,46 +86,3 @@ const countSetBits = (n: number): number => {
   }
   return count;
 };
-
-const exploreMap = function* (favNum: number): Generator<State> {
-  const startPos = new Vec2d(1, 1);
-  const history = new Set<string>([startPos.toString()]);
-  const queue = new Queue<Node>([{ pos: startPos, steps: 0 }]);
-
-  while (!queue.isEmpty()) {
-    const node = queue.dequeue();
-
-    yield { node, history };
-
-    for (const neighbour of getNeighbouringPositions(node.pos, favNum)) {
-      const hash = neighbour.toString();
-
-      if (!history.has(hash)) {
-        history.add(hash);
-
-        queue.enqueue({
-          pos: neighbour,
-          steps: node.steps + 1
-        });
-      }
-    }
-  }
-}
-
-export const part1 = (favNum: number): number => {
-  for (const { node: { pos, steps } } of exploreMap(favNum)) {
-    if (pos.x === 31 && pos.y === 39) {
-      return steps;
-    }
-  }
-};
-
-export const part2 = (favNum: number): number => {
-  for (const { node: { steps }, history } of exploreMap(favNum)) {
-    if (steps === 50) {
-      return history.size;
-    }
-  }
-};
-
-export const parseInput = (input: string): number => Number(input);
