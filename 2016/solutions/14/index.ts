@@ -6,6 +6,11 @@ type Key = {
   char: string
 };
 
+export const parseInput = (input: string): string => input;
+
+export const part1 = (salt: string): number => findKey(salt, 64).idx;
+export const part2 = (salt: string): number => findKey(salt, 64, 2016).idx;
+
 const findKey = (salt: string, keyNum: number, stretch: number = 0): Key => {
   const keys = [];
   const candidates = [];
@@ -38,8 +43,3 @@ const genHash = (input: string, stretch: number): string => {
 
   return hash;
 };
-
-export const part1 = (salt: string): number => findKey(salt, 64).idx;
-export const part2 = (salt: string): number => findKey(salt, 64, 2016).idx;
-
-export const parseInput = (input: string): string => input;

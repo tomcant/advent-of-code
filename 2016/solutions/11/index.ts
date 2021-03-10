@@ -23,6 +23,32 @@ type Node = {
   steps: number
 };
 
+export const parseInput = (input: string): Floor[] =>
+  input.split('\n').map(line => {
+    const components = [];
+    const pattern = /(\w+)(?:-\w+)?\s([mg])/g;
+
+    let match;
+    while (match = pattern.exec(line)) {
+      components.push({ element: match[1], type: match[2] });
+    }
+
+    return components;
+  });
+
+export const part1 = (floors: Floor[]): number => findShortestPath(floors);
+
+export const part2 = (floors: Floor[]): number => {
+  floors[0].push(...[
+    { element: 'elerium', type: ComponentType.Generator },
+    { element: 'elerium', type: ComponentType.Microchip },
+    { element: 'dilithium', type: ComponentType.Generator },
+    { element: 'dilithium', type: ComponentType.Microchip }
+  ]);
+
+  return findShortestPath(floors);
+};
+
 const findShortestPath = (floors: Floor[]): number => {
   const startPos = { floors, currFloorIdx: 0 };
   const history = new Set<string>([hashPosition(startPos)]);
@@ -137,29 +163,3 @@ const isOnTopFloor = ({ floors, currFloorIdx }: Position): boolean => floors.len
 
 const reachedTopFloorWithAllComponents = (pos: Position): boolean =>
   isOnTopFloor(pos) && pos.floors.filter(floor => floor.length > 0).length === 1;
-
-export const part1 = (floors: Floor[]): number => findShortestPath(floors);
-
-export const part2 = (floors: Floor[]): number => {
-  floors[0].push(...[
-    { element: 'elerium', type: ComponentType.Generator },
-    { element: 'elerium', type: ComponentType.Microchip },
-    { element: 'dilithium', type: ComponentType.Generator },
-    { element: 'dilithium', type: ComponentType.Microchip }
-  ]);
-
-  return findShortestPath(floors);
-};
-
-export const parseInput = (input: string): Floor[] =>
-  input.split('\n').map(line => {
-    const components = [];
-    const pattern = /(\w+)(?:-\w+)?\s([mg])/g;
-
-    let match;
-    while (match = pattern.exec(line)) {
-      components.push({ element: match[1], type: match[2] });
-    }
-
-    return components;
-  });

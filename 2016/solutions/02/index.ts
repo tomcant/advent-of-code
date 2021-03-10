@@ -8,6 +8,31 @@ enum Direction {
 type Instruction = Direction[];
 type Keypad = string[];
 
+export const parseInput = (input: string): Instruction[] =>
+  input.split('\n').map(instructions => instructions.split('') as Instruction);
+
+export const part1 = (instructions: Instruction[]): string =>
+  getDoorCode(
+    instructions,
+    [
+      '123',
+      '456',
+      '789'
+    ]
+  );
+
+export const part2 = (instructions: Instruction[]): string =>
+  getDoorCode(
+    instructions,
+    [
+      '  1  ',
+      ' 234 ',
+      '56789',
+      ' ABC ',
+      '  D  '
+    ]
+  );
+
 const getDoorCode = (instructions: Instruction[], keypad: Keypad): string => {
   const pad = ' '.repeat(keypad[0].length + 2);
   const paddedKeys = [pad, ...keypad.map(s => ` ${s} `), pad];
@@ -45,28 +70,3 @@ const getDoorCode = (instructions: Instruction[], keypad: Keypad): string => {
 
   return code;
 };
-
-export const part1 = (instructions: Instruction[]): string =>
-  getDoorCode(
-    instructions,
-    [
-      '123',
-      '456',
-      '789'
-    ]
-  );
-
-export const part2 = (instructions: Instruction[]): string =>
-  getDoorCode(
-    instructions,
-    [
-      '  1  ',
-      ' 234 ',
-      '56789',
-      ' ABC ',
-      '  D  '
-    ]
-  );
-
-export const parseInput = (input: string): Instruction[] =>
-  input.split('\n').map(instructions => instructions.split('') as Instruction);

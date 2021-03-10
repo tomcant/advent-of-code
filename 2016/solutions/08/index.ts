@@ -1,3 +1,13 @@
+export const part1 = (instructions: Instruction[]): number => applyInstructions(instructions).countOnPixels();
+export const part2 = (instructions: Instruction[]): string => '\n' + applyInstructions(instructions).toString();
+
+export const parseInput = (input: string): Instruction[] =>
+  input.split('\n').map(instruction => {
+    return instruction.startsWith('rect')
+      ? DrawRectangle.fromString(instruction)
+      : RotateAxis.fromString(instruction);
+  });
+
 enum PixelState {
   On = '#',
   Off = '.'
@@ -123,13 +133,3 @@ const applyInstructions = (instructions: Instruction[]): Screen =>
     (screen, instruction) => instruction.apply(screen),
     Screen.fromWidthAndHeight(50, 6)
   );
-
-export const part1 = (instructions: Instruction[]): number => applyInstructions(instructions).countOnPixels();
-export const part2 = (instructions: Instruction[]): string => '\n' + applyInstructions(instructions).toString();
-
-export const parseInput = (input: string): Instruction[] =>
-  input.split('\n').map(instruction => {
-    return instruction.startsWith('rect')
-      ? DrawRectangle.fromString(instruction)
-      : RotateAxis.fromString(instruction);
-  });

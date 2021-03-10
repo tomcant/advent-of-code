@@ -17,6 +17,22 @@ const DIRS = {
   R: new Vec2d(1, 0),
 };
 
+export const parseInput = (input: string): string => input;
+
+export const part1 = (passcode: string): string => findPathsToVault(passcode).next().value;
+
+export const part2 = (passcode: string): number => {
+  let longest = 0;
+
+  for (const path of findPathsToVault(passcode)) {
+    if (path.length > longest) {
+      longest = path.length;
+    }
+  }
+
+  return longest;
+};
+
 const findPathsToVault = function* (passcode: string): Generator<string> {
   const queue = new Queue<Node>([{ pos: new Vec2d(0, 0), path: '' }]);
 
@@ -53,19 +69,3 @@ const getPathOptions = ({ pos, path }: Node, passcode: string): Node[] => {
 const isDoorOpen = (door: string): boolean => door.charCodeAt(0) > 'a'.charCodeAt(0);
 const isVaultPos = ({ x, y }: Vec2d): boolean => WIDTH - 1 === x && HEIGHT - 1 === y;
 const isWithinBounds = ({ x, y }: Vec2d): boolean => x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT;
-
-export const part1 = (passcode: string): string => findPathsToVault(passcode).next().value;
-
-export const part2 = (passcode: string): number => {
-  let longest = 0;
-
-  for (const path of findPathsToVault(passcode)) {
-    if (path.length > longest) {
-      longest = path.length;
-    }
-  }
-
-  return longest;
-};
-
-export const parseInput = (input: string): string => input;

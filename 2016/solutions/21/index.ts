@@ -1,3 +1,8 @@
+export const parseInput = (input: string): Operation[] => input.split('\n').map(OperationFactory.createFromStr);
+
+export const part1 = (ops: Operation[]): string => ops.reduce((pw, op) => op.apply(pw), 'abcdefgh'.split('')).join('');
+export const part2 = (ops: Operation[]): string => ops.reverse().reduce((pw, op) => op.revert(pw), 'fbgdceah'.split('')).join('');
+
 type Password = string[];
 
 interface Operation {
@@ -156,12 +161,3 @@ class OperationFactory {
     throw new Error(`Unhandled operation ${str}`);
   }
 }
-
-export const part1 = (ops: Operation[]): string =>
-  ops.reduce((pw, op) => op.apply(pw), 'abcdefgh'.split('')).join('');
-
-export const part2 = (ops: Operation[]): string =>
-  ops.reverse().reduce((pw, op) => op.revert(pw), 'fbgdceah'.split('')).join('');
-
-export const parseInput = (input: string): Operation[] =>
-  input.split('\n').map(OperationFactory.createFromStr);

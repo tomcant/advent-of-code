@@ -52,7 +52,7 @@ const exploreMap = function* (favNum: number): Generator<State> {
       }
     }
   }
-}
+};
 
 const getNeighbouringPositions = (pos: Vec2d, favNum: number): Vec2d[] => {
   const positions = [];

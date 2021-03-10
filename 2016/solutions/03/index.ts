@@ -1,6 +1,10 @@
 type Triangle = [number, number, number];
 
-const isValid = ([l1, l2, l3]: Triangle): boolean => l1 + l2 > l3 && l1 + l3 > l2 && l2 + l3 > l1;
+export const parseInput = (input: string): Triangle[] =>
+  input.split('\n').map(line => {
+    const [l1, l2, l3] = line.trim().split(/\s+/);
+    return [+l1, +l2, +l3] as Triangle;
+  });
 
 export const part1 = (triangles: Triangle[]): number =>
   triangles.reduce((validCount, triangle) => validCount + +isValid(triangle), 0);
@@ -21,8 +25,4 @@ export const part2 = (triangles: Triangle[]): number => {
   return validCount;
 };
 
-export const parseInput = (input: string): Triangle[] =>
-  input.split('\n').map(line => {
-    const [l1, l2, l3] = line.trim().split(/\s+/);
-    return [+l1, +l2, +l3] as Triangle;
-  });
+const isValid = ([l1, l2, l3]: Triangle): boolean => l1 + l2 > l3 && l1 + l3 > l2 && l2 + l3 > l1;

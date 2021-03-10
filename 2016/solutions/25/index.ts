@@ -33,11 +33,11 @@ export const part1 = (instructions: Instruction[]): number => {
 
 const run = function* (instructions: Instruction[], initialRegisters: Registers): Generator<{ output: number, registers: Registers }> {
   const registers = initialRegisters;
-  let nextIdx = 0;
+  let pointer = 0;
 
-  while (nextIdx < instructions.length) {
-    const { op, args } = instructions[nextIdx];
-    let idxIncrement = 1;
+  while (pointer < instructions.length) {
+    const { op, args } = instructions[pointer];
+    let pointerInc = 1;
 
     switch (op) {
       case 'cpy':
@@ -51,7 +51,7 @@ const run = function* (instructions: Instruction[], initialRegisters: Registers)
         break;
       case 'jnz':
         if (registers.get(args[0]) || +args[0]) {
-          idxIncrement = registers.get(args[1]) || +args[1];
+          pointerInc = registers.get(args[1]) || +args[1];
         }
         break;
       case 'out':
@@ -61,7 +61,7 @@ const run = function* (instructions: Instruction[], initialRegisters: Registers)
         };
     }
 
-    nextIdx += idxIncrement;
+    pointer += pointerInc;
   }
 
   return registers;

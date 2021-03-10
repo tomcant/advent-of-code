@@ -2,17 +2,7 @@ import { createHash } from 'crypto';
 
 const PASS_LENGTH = 8;
 
-function* generatePasswordCharacterHashes(doorId: string) {
-  const prefix = '0'.repeat(5);
-  let hash, n = 0;
-
-  while (true) {
-    do hash = createHash('md5').update(doorId + n).digest('hex');
-    while (++n && hash.substr(0, prefix.length) !== prefix);
-
-    yield hash;
-  }
-}
+export const parseInput = (input: string): string => input;
 
 export const part1 = (doorId: string): string => {
   let password = '';
@@ -40,4 +30,14 @@ export const part2 = (doorId: string): string => {
   }
 };
 
-export const parseInput = (input: string): string => input;
+const generatePasswordCharacterHashes = function* (doorId: string) {
+  const prefix = '0'.repeat(5);
+  let hash, n = 0;
+
+  while (true) {
+    do hash = createHash('md5').update(doorId + n).digest('hex');
+    while (++n && hash.substr(0, prefix.length) !== prefix);
+
+    yield hash;
+  }
+};

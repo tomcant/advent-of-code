@@ -3,6 +3,11 @@ enum Tile {
   Trap = '^'
 }
 
+export const parseInput = (input: string): string => input;
+
+export const part1 = (firstRow: string): number => countSafeTiles(firstRow, 40);
+export const part2 = (firstRow: string): number => countSafeTiles(firstRow, 400000);
+
 const countSafeTiles = (firstRow: string, numRows: number): number => {
   const countForRow = (row: string): number =>
     row.match(RegExp('\\' + Tile.Safe, 'g')).length;
@@ -26,8 +31,3 @@ const countSafeTiles = (firstRow: string, numRows: number): number => {
 
   return count;
 };
-
-export const part1 = (firstRow: string): number => countSafeTiles(firstRow, 40);
-export const part2 = (firstRow: string): number => countSafeTiles(firstRow, 400000);
-
-export const parseInput = (input: string): string => input;

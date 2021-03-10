@@ -1,3 +1,8 @@
+export const parseInput = (input: string): string[] => input.split('\n');
+
+export const part1 = (msgs: string[]): string => reduceMessages(msgs, getMostCommonChar);
+export const part2 = (msgs: string[]): string => reduceMessages(msgs, getLeastCommonChar);
+
 const getMostCommonChar = (msgs: string[], idx: number): string => getCharsByCountAsc(msgs, idx).pop();
 const getLeastCommonChar = (msgs: string[], idx: number): string => getCharsByCountAsc(msgs, idx).shift();
 
@@ -16,8 +21,3 @@ const reduceMessages = (msgs: string[], reduceCharsFn: Function): string => {
 
   return msg;
 };
-
-export const part1 = (msgs: string[]): string => reduceMessages(msgs, getMostCommonChar);
-export const part2 = (msgs: string[]): string => reduceMessages(msgs, getLeastCommonChar);
-
-export const parseInput = (input: string): string[] => input.split('\n');

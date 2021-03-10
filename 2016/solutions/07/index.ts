@@ -1,3 +1,8 @@
+export const parseInput = (input: string): string[] => input.split('\n');
+
+export const part1 = (ips: string[]): number => ips.reduce((count, ip) => count + +hasTls(ip), 0);
+export const part2 = (ips: string[]): number => ips.reduce((count, ip) => count + +hasSsl(ip), 0);
+
 const hasTls = (ip: string): boolean => Boolean(ip.match(/\[?\w*(\w)(?!\1)(\w)\2\1/g)?.every(m => m[0] !== '['));
 
 const hasSsl = (ip: string): boolean => {
@@ -16,8 +21,3 @@ const hasSsl = (ip: string): boolean => {
 
   return false;
 };
-
-export const part1 = (ips: string[]): number => ips.reduce((count, ip) => count + +hasTls(ip), 0);
-export const part2 = (ips: string[]): number => ips.reduce((count, ip) => count + +hasSsl(ip), 0);
-
-export const parseInput = (input: string): string[] => input.split('\n');

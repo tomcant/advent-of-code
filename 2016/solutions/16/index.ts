@@ -1,3 +1,8 @@
+export const parseInput = (input: string): string => input;
+
+export const part1 = (input: string): string => genChecksum(genData(input, 272));
+export const part2 = (input: string): string => genChecksum(genData(input, 35651584));
+
 const genData = (initial: string, len: number): string => {
   let data = initial;
 
@@ -23,8 +28,3 @@ const genChecksum = (data: string): string => {
 
   return checksum;
 };
-
-export const part1 = (input: string): string => genChecksum(genData(input, 272));
-export const part2 = (input: string): string => genChecksum(genData(input, 35651584));
-
-export const parseInput = (input: string): string => input;

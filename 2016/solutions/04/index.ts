@@ -4,22 +4,11 @@ type Room = {
   checksum: string,
 };
 
-const isRoomReal = (room: Room): boolean => {
-  let lastChar, lastCount;
-
-  for (const char of room.checksum) {
-    const count = room.name.match(RegExp(char, 'g'))?.length;
-
-    if (!count || count > lastCount || count === lastCount && char.charCodeAt(0) < lastChar.charCodeAt(0)) {
-      return false;
-    }
-
-    lastChar = char;
-    lastCount = count;
-  }
-
-  return true;
-};
+export const parseInput = (input: string): Room[] =>
+  input.split('\n').map(line => {
+    const [, name, sector, checksum] = line.match(/(.+)-(\d+)\[(\w+)]/);
+    return { name, sector: +sector, checksum };
+  });
 
 export const part1 = (rooms: Room[]): number =>
   rooms.reduce((sum, room) => sum + (isRoomReal(room) && room.sector), 0);
@@ -43,8 +32,19 @@ export const part2 = (rooms: Room[]): number => {
   }
 };
 
-export const parseInput = (input: string): Room[] =>
-  input.split('\n').map(line => {
-    const [, name, sector, checksum] = line.match(/(.+)-(\d+)\[(\w+)]/);
-    return { name, sector: +sector, checksum };
-  });
+const isRoomReal = (room: Room): boolean => {
+  let lastChar, lastCount;
+
+  for (const char of room.checksum) {
+    const count = room.name.match(RegExp(char, 'g'))?.length;
+
+    if (!count || count > lastCount || count === lastCount && char.charCodeAt(0) < lastChar.charCodeAt(0)) {
+      return false;
+    }
+
+    lastChar = char;
+    lastCount = count;
+  }
+
+  return true;
+};

@@ -1,3 +1,8 @@
+export const parseInput = (input: string): Node => new Node(input);
+
+export const part1 = (input: Node): number => countDecompressedChars(input, 1);
+export const part2 = (input: Node): number => countDecompressedChars(input);
+
 enum Marker {
   Open = '(',
   Close = ')'
@@ -57,8 +62,3 @@ const findChildNodes = (node: Node): Node[] => {
 
   return nodes;
 };
-
-export const part1 = (input: Node): number => countDecompressedChars(input, 1);
-export const part2 = (input: Node): number => countDecompressedChars(input);
-
-export const parseInput = (input: string): Node => new Node(input);

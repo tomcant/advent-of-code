@@ -1,3 +1,5 @@
+export const parseInput = (input: string): number => Number(input);
+
 export const part1 = (numElfs: number): number => {
   // See https://en.wikipedia.org/wiki/Josephus_problem
   let msb = 1;
@@ -24,5 +26,3 @@ export const part2 = (numElfs: number): number => {
 
   return winningElf;
 };
-
-export const parseInput = (input: string): number => Number(input);

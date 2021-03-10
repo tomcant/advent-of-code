@@ -5,6 +5,33 @@ type Bot = [number?, number?];
 type Output = number;
 type Factory = [Bot[], Output[]];
 
+export const parseInput = (input: string): Instruction[] =>
+  input.split('\n').map(line =>
+    line.startsWith('bot')
+      ? ResolveBot.fromString(line)
+      : InitialiseBot.fromString(line)
+  );
+
+export const part1 = (instructions: Instruction[]): number => {
+  for (const [bots] of resolve(instructions)) {
+    for (const [idx, bot] of bots.entries()) {
+      if (bot && bot.length === 2 && bot[0] === 17 && bot[1] === 61) {
+        return idx;
+      }
+    }
+  }
+};
+
+export const part2 = (instructions: Instruction[]): number => {
+  for (const [, outputs] of resolve(instructions)) {
+    const product = outputs[0] * outputs[1] * outputs[2];
+
+    if (!isNaN(product)) {
+      return product;
+    }
+  }
+};
+
 interface Instruction {
   apply(factory: Factory): boolean;
 }
@@ -85,31 +112,4 @@ const resolve = function* (instructions: Instruction[]): Generator<Factory> {
 
     yield factory;
   }
-}
-
-export const part1 = (instructions: Instruction[]): number => {
-  for (const [bots] of resolve(instructions)) {
-    for (const [idx, bot] of bots.entries()) {
-      if (bot && bot.length === 2 && bot[0] === 17 && bot[1] === 61) {
-        return idx;
-      }
-    }
-  }
 };
-
-export const part2 = (instructions: Instruction[]): number => {
-  for (const [, outputs] of resolve(instructions)) {
-    const product = outputs[0] * outputs[1] * outputs[2];
-
-    if (!isNaN(product)) {
-      return product;
-    }
-  }
-};
-
-export const parseInput = (input: string): Instruction[] =>
-  input.split('\n').map(line =>
-    line.startsWith('bot')
-      ? ResolveBot.fromString(line)
-      : InitialiseBot.fromString(line)
-  );
