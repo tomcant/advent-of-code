@@ -1,4 +1,4 @@
-const { readGroupedLines } = require( '../../utils/file-io');
+const { readGroupedLines } = require('../utils/file-io');
 
 const part1 = (replacements, molecule) => {
   const molecules = new Set();

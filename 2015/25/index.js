@@ -1,4 +1,4 @@
-const { readRaw } = require('../../utils/file-io');
+const { readRaw } = require('../utils/file-io');
 
 const calcCode = (row, col) => {
   let termNumber = calcTermNumber(row, col);

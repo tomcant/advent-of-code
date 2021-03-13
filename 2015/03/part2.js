@@ -1,4 +1,4 @@
-const { readRaw } = require('../../utils/file-io');
+const { readRaw } = require('../utils/file-io');
 
 const instructions = readRaw('input.txt');
 const positions = [{ x: 0, y: 0 }, { x: 0, y: 0 }];

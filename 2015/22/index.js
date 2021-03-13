@@ -1,4 +1,4 @@
-const { readLines } = require( '../../utils/file-io');
+const { readLines } = require('../utils/file-io');
 
 const spells = [
   { name: 'Magic Missile', cost: 53, damage: 4, armor: 0, health: 0, mana: 0, duration: 1 },

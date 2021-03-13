@@ -1,4 +1,4 @@
-const { readLines } = require('../../utils/file-io');
+const { readLines } = require('../utils/file-io');
 
 const ingredients = readLines('input.txt').map(line => {
   const [, attributes] = line.match(/\w+:\s(.+)/);

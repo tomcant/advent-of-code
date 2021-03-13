@@ -1,4 +1,4 @@
-const { readLines } = require('../../utils/file-io');
+const { readLines } = require('../utils/file-io');
 
 const matches = (readings, attributes, validators = {}) => {
   for (const [attribute, value] of Object.entries(attributes)) {

@@ -1,4 +1,4 @@
-const { readRaw } = require('../../utils/file-io');
+const { readRaw } = require('../utils/file-io');
 
 const nextTerm = term => {
   let [next, count, i] = ['', 1, 1];

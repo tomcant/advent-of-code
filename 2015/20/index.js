@@ -1,4 +1,4 @@
-const { readRaw } = require( '../../utils/file-io');
+const { readRaw } = require('../utils/file-io');
 
 const sumOfDivisorsWithFactorLimit = (n, factorLimit) => {
   if (1 === n) {

@@ -1,4 +1,4 @@
-const { readRaw } = require('../../utils/file-io');
+const { readRaw } = require('../utils/file-io');
 
 const letterA = 'a'.charCodeAt(0);
 

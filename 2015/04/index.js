@@ -1,5 +1,5 @@
 const crypto = require('crypto');
-const { readRaw } = require('../../utils/file-io');
+const { readRaw } = require('../utils/file-io');
 
 const secret = readRaw('input.txt');
 

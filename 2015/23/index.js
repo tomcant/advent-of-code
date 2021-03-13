@@ -1,4 +1,4 @@
-const { readLines } = require( '../../utils/file-io');
+const { readLines } = require('../utils/file-io');
 
 const run = (instructions, initialRegisters) => {
   let registers = initialRegisters;

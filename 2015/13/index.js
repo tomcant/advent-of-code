@@ -1,4 +1,4 @@
-const { readLines } = require('../../utils/file-io');
+const { readLines } = require('../utils/file-io');
 
 const findHappiestArrangementScore = (rules, person = null, arrangement = []) => {
   if (person) {

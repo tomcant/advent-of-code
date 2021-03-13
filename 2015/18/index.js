@@ -1,4 +1,4 @@
-const { readLines } = require( '../../utils/file-io');
+const { readLines } = require('../utils/file-io');
 
 const step = (lights, steps, isLightOnFn) => {
   const states = { true: '#', false: '.' };

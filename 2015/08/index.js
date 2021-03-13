@@ -1,4 +1,4 @@
-const { readLines } = require('../../utils/file-io');
+const { readLines } = require('../utils/file-io');
 
 const getLengthAfterReplacements = (str, replacements) =>
   replacements.reduce((str, { regex, replacement }) => str.replace(regex, replacement), str).length;
