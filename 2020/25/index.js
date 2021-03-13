@@ -1,4 +1,4 @@
-const { readLines } = require('../../utils/file-io');
+const { readLines } = require('../utils/file-io');
 
 const [cardKey, doorKey] = readLines('input.txt').map(Number);
 

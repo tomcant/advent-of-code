@@ -1,4 +1,4 @@
-const { readLines } = require('../../utils/file-io');
+const { readLines } = require('../utils/file-io');
 
 const generateNextStep = (activePoints) => {
   let [[minX, minY, minZ, minW], [maxX, maxY, maxZ, maxW]] =

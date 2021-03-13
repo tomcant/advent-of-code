@@ -1,4 +1,4 @@
-const { readRaw } = require('../../utils/file-io');
+const { readRaw } = require('../utils/file-io');
 
 // Due to the array manipulation performed in this solution it won't be efficient enough to complete part 2 in any
 // reasonable timeframe. See `index.js` for a more efficient solution using a circular linked list instead.

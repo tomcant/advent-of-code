@@ -1,4 +1,4 @@
-const { readGroupedLines } = require('../../utils/file-io');
+const { readGroupedLines } = require('../utils/file-io');
 
 const play = (p1deck, p2deck, recursive) => {
   const seen = new Set();

@@ -1,4 +1,4 @@
-const { readGroupedLines } = require('../../utils/file-io');
+const { readGroupedLines } = require('../utils/file-io');
 
 let [rules, [, myTicket], [, ...nearbyTickets]] = readGroupedLines('input.txt');
 

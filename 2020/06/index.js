@@ -1,4 +1,4 @@
-const { readGroupedLines } = require('../../utils/file-io');
+const { readGroupedLines } = require('../utils/file-io');
 
 const groups = readGroupedLines('input.txt').map(lines => {
   const group = {

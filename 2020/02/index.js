@@ -1,4 +1,4 @@
-const { readLines } = require('../../utils/file-io');
+const { readLines } = require('../utils/file-io');
 
 const part1 = passwords => passwords.reduce(
   (validCount, [min, max, char, password]) => {

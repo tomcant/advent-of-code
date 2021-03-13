@@ -1,4 +1,4 @@
-const { readRaw } = require('../../utils/file-io');
+const { readRaw } = require('../utils/file-io');
 
 const findNthTerm = (numbers, n) => {
   let last = numbers.pop();

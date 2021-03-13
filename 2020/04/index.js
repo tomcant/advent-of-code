@@ -1,4 +1,4 @@
-const { readGroupsRaw } = require('../../utils/file-io');
+const { readGroupsRaw } = require('../utils/file-io');
 
 const containsFields = (passport, fields) => fields.reduce(
   (containsFields, field) => containsFields && field in passport,

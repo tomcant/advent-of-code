@@ -1,4 +1,4 @@
-const { readLines } = require('../../utils/file-io');
+const { readLines } = require('../utils/file-io');
 
 // Thanks to this incredible resource: https://www.redblobgames.com/grids/hexagons
 

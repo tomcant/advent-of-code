@@ -1,4 +1,4 @@
-const { readLines } = require('../../utils/file-io');
+const { readLines } = require('../utils/file-io');
 
 const part1 = numbers => {
   const diffs = { 1: 0, 3: 0 };

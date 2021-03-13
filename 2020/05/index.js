@@ -1,4 +1,4 @@
-const { readLines } = require('../../utils/file-io');
+const { readLines } = require('../utils/file-io');
 
 const toDecimal = (ref, upperChar) => [...ref].reduce(
   (decimal, char, index) => decimal | (upperChar === char ? 1 << (ref.length - index - 1) : 0),

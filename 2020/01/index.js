@@ -1,4 +1,4 @@
-const { readLines } = require('../../utils/file-io');
+const { readLines } = require('../utils/file-io');
 
 const twoSum = (target, numbers) => {
   for (const number of numbers) {

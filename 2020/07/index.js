@@ -1,4 +1,4 @@
-const { readLines } = require('../../utils/file-io');
+const { readLines } = require('../utils/file-io');
 
 const rules = Object.fromEntries(
   readLines('input.txt').map(line => {

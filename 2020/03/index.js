@@ -1,4 +1,4 @@
-const { readLines } = require('../../utils/file-io');
+const { readLines } = require('../utils/file-io');
 
 const countTrees = (right, down, map) => map.reduce(
   (trees, line, index) => index % down > 0 ? trees :
