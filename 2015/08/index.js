@@ -1,10 +1,7 @@
 const { readLines } = require('../utils/file-io');
 
-const getLengthAfterReplacements = (str, replacements) =>
-  replacements.reduce((str, { regex, replacement }) => str.replace(regex, replacement), str).length;
-
-const getLengthDecoded = str => getLengthAfterReplacements(
-  str, [
+const part1 = strs => getLengthDiffAfterReplacements(
+  strs, [
     { regex: /^"/, replacement: '' },
     { regex: /"$/, replacement: '' },
     { regex: /\\\\/g, replacement: '\\' },
@@ -13,8 +10,8 @@ const getLengthDecoded = str => getLengthAfterReplacements(
   ]
 );
 
-const getLengthEncoded = str => getLengthAfterReplacements(
-  str, [
+const part2 = strs => getLengthDiffAfterReplacements(
+  strs, [
     { regex: /\\/g, replacement: '\\\\' },
     { regex: /"/g, replacement: '\\"' },
     { regex: /"$/, replacement: '\\""' },
@@ -22,14 +19,21 @@ const getLengthEncoded = str => getLengthAfterReplacements(
   ]
 );
 
-let lengthRaw = 0;
-let lengthDecoded = 0;
-let lengthEncoded = 0;
+const getLengthDiffAfterReplacements = (strs, replacements) => {
+  const lenRaw = strs.reduce((len, str) => len + str.length, 0);
 
-readLines('input.txt').forEach(line => {
-  lengthRaw += line.length;
-  lengthDecoded += getLengthDecoded(line);
-  lengthEncoded += getLengthEncoded(line);
-});
+  const lenReplaced = strs.reduce(
+    (len, str) => len + replacements.reduce(
+      (str, { regex, replacement }) => str.replace(regex, replacement),
+      str
+    ).length,
+    0
+  );
 
-console.log(lengthRaw - lengthDecoded, lengthEncoded - lengthRaw);
+  return Math.abs(lenRaw - lenReplaced);
+};
+
+const strs = readLines('input.txt');
+
+console.log('Part 1:', part1(strs));
+console.log('Part 2:', part2(strs));

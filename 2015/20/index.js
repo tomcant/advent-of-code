@@ -1,5 +1,17 @@
 const { readRaw } = require('../utils/file-io');
 
+const part1 = minPresents => findFirstHouseWithMinPresents(minPresents, 10, Infinity);
+const part2 = minPresents => findFirstHouseWithMinPresents(minPresents, 11, 50);
+
+const findFirstHouseWithMinPresents = (minPresents, presentsPerHouse, maxPresentsPerElf) => {
+  let sum, houseNumber = 1;
+
+  do sum = presentsPerHouse * sumOfDivisorsWithFactorLimit(houseNumber++, maxPresentsPerElf);
+  while (sum < minPresents);
+
+  return houseNumber - 1;
+};
+
 const sumOfDivisorsWithFactorLimit = (n, factorLimit) => {
   if (1 === n) {
     return 1;
@@ -23,18 +35,7 @@ const sumOfDivisorsWithFactorLimit = (n, factorLimit) => {
   return sum;
 };
 
-const findFirstHouseWithMinPresents = (minPresents, presentsPerHouse, maxPresentsPerElf) => {
-  let sum, houseNumber = 1;
-
-  do sum = presentsPerHouse * sumOfDivisorsWithFactorLimit(houseNumber++, maxPresentsPerElf);
-  while (sum < minPresents);
-
-  return houseNumber - 1;
-};
-
-const part1 = minPresents => findFirstHouseWithMinPresents(minPresents, 10, Infinity);
-const part2 = minPresents => findFirstHouseWithMinPresents(minPresents, 11, 50);
-
 const minPresents = readRaw('input.txt');
 
-console.log(part1(minPresents), part2(minPresents));
+console.log('Part 1:', part1(minPresents));
+console.log('Part 2:', part2(minPresents));

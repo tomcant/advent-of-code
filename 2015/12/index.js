@@ -1,5 +1,8 @@
 const { readRaw } = require('../utils/file-io');
 
+const part1 = json => JSON.stringify(json).match(/-?\d+/g).reduce((sum, n) => sum + +n, 0);
+const part2 = json => sumExcludingRedObjects(json);
+
 const sumExcludingRedObjects = json => {
   if (json instanceof Array) {
     return json.reduce((sum, item) => sum + sumExcludingRedObjects(item), 0);
@@ -16,4 +19,5 @@ const sumExcludingRedObjects = json => {
 
 const json = JSON.parse(readRaw('input.txt'));
 
-console.log(sumExcludingRedObjects(json));
+console.log('Part 1:', part1(json));
+console.log('Part 2:', part2(json));

@@ -1,5 +1,16 @@
 const { readRaw } = require('../utils/file-io');
 
+const part1 = term => nthTermFrom(term, 40).length;
+const part2 = term => nthTermFrom(term, 50).length;
+
+const nthTermFrom = (term, n) => {
+  while (n--) {
+    term = nextTerm(term);
+  }
+
+  return term;
+};
+
 const nextTerm = term => {
   let [next, count, i] = ['', 1, 1];
 
@@ -14,14 +25,7 @@ const nextTerm = term => {
   return next;
 };
 
-const nthTermFrom = (term, n) => {
-  while (n--) {
-    term = nextTerm(term);
-  }
-
-  return term;
-};
-
 const term = readRaw('input.txt');
 
-console.log(nthTermFrom(term, 40).length, nthTermFrom(term, 50).length);
+console.log('Part 1:', part1(term));
+console.log('Part 2:', part2(term));

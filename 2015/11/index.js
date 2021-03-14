@@ -1,24 +1,37 @@
 const { readRaw } = require('../utils/file-io');
 
-const letterA = 'a'.charCodeAt(0);
+const part1 = currentPassword => findNextValidPassword(currentPassword);
+const part2 = currentPassword => findNextValidPassword(findNextValidPassword(currentPassword));
 
-const toBase10 = base26 => [...base26].reduce(
-  (base10, char, index) => base10 + 26 ** (base26.length - index - 1) * (char.charCodeAt(0) - letterA),
-  0
-);
+const findNextValidPassword = password => {
+  do password = incrementBase26(password);
+  while (!isPasswordValid(password));
+
+  return password;
+};
+
+const incrementBase26 = base26 => toBase26(toBase10(base26) + 1);
 
 const toBase26 = base10 => {
   let base26 = '';
 
   while (base10) {
-    base26 = String.fromCharCode((base10 % 26) + letterA) + base26;
+    base26 = String.fromCharCode((base10 % 26) + 'a'.charCodeAt(0)) + base26;
     base10 = Math.floor(base10 / 26);
   }
 
   return base26;
 };
 
-const incrementBase26 = base26 => toBase26(toBase10(base26) + 1);
+const toBase10 = base26 => [...base26].reduce(
+  (base10, char, index) => base10 + 26 ** (base26.length - index - 1) * (char.charCodeAt(0) - 'a'.charCodeAt(0)),
+  0
+);
+
+const isPasswordValid = password =>
+  !/iol/.test(password) &&
+  /(.)\1.*(.)\2/.test(password) &&
+  containsThreeConsecutiveChars(password);
 
 const containsThreeConsecutiveChars = str => {
   for (let i = 2; i < str.length; ++i) {
@@ -33,20 +46,7 @@ const containsThreeConsecutiveChars = str => {
   return false;
 };
 
-const isPasswordValid = password =>
-  !/iol/.test(password) &&
-  /(.)\1.*(.)\2/.test(password) &&
-  containsThreeConsecutiveChars(password);
-
-const findNextValidPassword = password => {
-  do password = incrementBase26(password);
-  while (!isPasswordValid(password));
-
-  return password;
-};
-
 const currentPassword = readRaw('input.txt');
-const nextPassword = findNextValidPassword(currentPassword);
-const nextNextPassword = findNextValidPassword(nextPassword);
 
-console.log(nextPassword, nextNextPassword);
+console.log('Part 1:', part1(currentPassword));
+console.log('Part 2:', part2(currentPassword));

@@ -1,5 +1,24 @@
 const { readLines } = require('../utils/file-io');
 
+const part1 = lights => {
+  const isLightOn = (lights, x, y) => '#' === lights[y][x];
+
+  return countLightsOn(step(lights, 100, isLightOn), isLightOn);
+};
+
+const part2 = lights => {
+  const isLightOn = (lights, x, y) => '#' === lights[y][x]
+    || (0 === x || lights[y].length - 1 === x)
+    && (0 === y || lights.length - 1 === y);
+
+  return countLightsOn(step(lights, 100, isLightOn), isLightOn);
+};
+
+const countLightsOn = (lights, isLightOnFn) => lights.reduce(
+  (sum, line, y) => sum + [...line].reduce((sum, _, x) => sum + isLightOnFn(lights, x, y), 0),
+  0
+);
+
 const step = (lights, steps, isLightOnFn) => {
   const states = { true: '#', false: '.' };
   let last = lights;
@@ -41,25 +60,7 @@ const countNeighbouringLightsOn = (lights, x, y, isLightOnFn) => {
   return count;
 };
 
-const countLightsOn = (lights, isLightOnFn) => lights.reduce(
-  (sum, line, y) => sum + [...line].reduce((sum, _, x) => sum + isLightOnFn(lights, x, y), 0),
-  0
-);
-
-const part1 = lights => {
-  const isLightOn = (lights, x, y) => '#' === lights[y][x];
-
-  return countLightsOn(step(lights, 100, isLightOn), isLightOn);
-};
-
-const part2 = lights => {
-  const isLightOn = (lights, x, y) => '#' === lights[y][x]
-    || (0 === x || lights[y].length - 1 === x)
-    && (0 === y || lights.length - 1 === y);
-
-  return countLightsOn(step(lights, 100, isLightOn), isLightOn);
-};
-
 const lights = readLines('input.txt');
 
-console.log(part1(lights), part2(lights));
+console.log('Part 1:', part1(lights));
+console.log('Part 2:', part2(lights));

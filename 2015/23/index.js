@@ -1,5 +1,8 @@
 const { readLines } = require('../utils/file-io');
 
+const part1 = instructions => run(instructions, { a: 0, b: 0 }).b;
+const part2 = instructions => run(instructions, { a: 1, b: 0 }).b;
+
 const run = (instructions, initialRegisters) => {
   let registers = initialRegisters;
   let next = 0;
@@ -39,12 +42,10 @@ const run = (instructions, initialRegisters) => {
   return registers;
 };
 
-const part1 = instructions => run(instructions, { a: 0, b: 0 }).b;
-const part2 = instructions => run(instructions, { a: 1, b: 0 }).b;
-
 const instructions = readLines('input.txt').map(line => {
   const [, op, args] = line.match(/([^\s]+)\s(.+)/);
   return [op, args.split(', ')];
 });
 
-console.log(part1(instructions), part2(instructions));
+console.log('Part 1:', part1(instructions));
+console.log('Part 2:', part2(instructions));

@@ -36,4 +36,5 @@ const part2 = (replacements, molecule) => {
 const [replacementsRaw, [molecule]] = readGroupedLines('input.txt');
 const replacements = replacementsRaw.map(replacement => replacement.split(' => '));
 
-console.log(part1(replacements, molecule), part2(replacements, molecule));
+console.log('Part 1:', part1(replacements, molecule));
+console.log('Part 2:', part2(replacements, molecule));

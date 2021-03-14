@@ -1,5 +1,7 @@
 const { readRaw } = require('../utils/file-io');
 
+const part1 = (row, col) => calcCode(row, col);
+
 const calcCode = (row, col) => {
   let termNumber = calcTermNumber(row, col);
   let code = 20151125;
@@ -17,4 +19,4 @@ const sum1toN = n => .5 * n * (n + 1);
 
 const [, row, col] = readRaw('input.txt').match(/row\s(\d+),\scolumn\s(\d+)/);
 
-console.log(calcCode(+row, +col));
+console.log('Part 1:', part1(+row, +col));

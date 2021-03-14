@@ -1,5 +1,17 @@
 const { readLines } = require('../utils/file-io');
 
+const part1 = rules => findHappiestArrangementScore(rules);
+
+const part2 = rules => {
+  rules['Me'] = {};
+
+  for (const person in rules) {
+    rules['Me'][person] = rules[person]['Me'] = 0;
+  }
+
+  return findHappiestArrangementScore(rules);
+};
+
 const findHappiestArrangementScore = (rules, person = null, arrangement = []) => {
   if (person) {
     arrangement.push(person);
@@ -37,25 +49,14 @@ const scoreArrangement = (arrangement, rules) => {
   return score;
 };
 
-const part1 = rules => findHappiestArrangementScore(rules);
-
-const part2 = rules => {
-  rules['Me'] = {};
-
-  for (let person in rules) {
-    rules['Me'][person] = rules[person]['Me'] = 0;
-  }
-
-  return findHappiestArrangementScore(rules);
-};
-
 const rules = {};
 
-readLines('input.txt').forEach(line => {
+for (const line of readLines('input.txt')) {
   const [, person, gainOrLose, happinessUnits, satNextTo] = line.match(/(.+) .+ (gain|lose) (\d+) .+ (.+)\./);
 
   rules[person] = rules[person] || {};
   rules[person][satNextTo] = 'gain' === gainOrLose ? +happinessUnits : -happinessUnits;
-});
+}
 
-console.log(part1(rules), part2(rules));
+console.log('Part 1:', part1(rules));
+console.log('Part 2:', part2(rules));

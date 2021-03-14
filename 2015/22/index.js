@@ -1,5 +1,13 @@
 const { readLines } = require('../utils/file-io');
 
+const part1 = boss => findCheapestWinForPlayer(boss, applyPlayerTurn);
+
+const part2 = boss => findCheapestWinForPlayer(boss, (spell, currentState) => {
+  const state = applyPlayerTurn(spell, currentState);
+  state.player.health -= 1;
+  return state;
+});
+
 const spells = [
   { name: 'Magic Missile', cost: 53, damage: 4, armor: 0, health: 0, mana: 0, duration: 1 },
   { name: 'Drain', cost: 73, damage: 2, armor: 0, health: 2, mana: 0, duration: 1 },
@@ -7,10 +15,6 @@ const spells = [
   { name: 'Poison', cost: 173, damage: 3, armor: 0, health: 0, mana: 0, duration: 6 },
   { name: 'Recharge', cost: 229, damage: 0, armor: 0, health: 0, mana: 101, duration: 5 }
 ];
-
-const isEffect = spell => spell.duration > 1;
-const isEffectActive = (spell, state) => state.effects[spell.name] > 0;
-const isAffordable = (spell, state) => state.balance >= spell.cost;
 
 const findCheapestWinForPlayer = (boss, applyPlayerTurnFn) => {
   const initialState = {
@@ -111,15 +115,12 @@ const cloneState = state => ({
   boss: { ...state.boss }
 });
 
-const part1 = boss => findCheapestWinForPlayer(boss, applyPlayerTurn);
-
-const part2 = boss => findCheapestWinForPlayer(boss, (spell, currentState) => {
-  const state = applyPlayerTurn(spell, currentState);
-  state.player.health -= 1;
-  return state;
-});
+const isEffect = spell => spell.duration > 1;
+const isEffectActive = (spell, state) => state.effects[spell.name] > 0;
+const isAffordable = (spell, state) => state.balance >= spell.cost;
 
 const values = readLines('input.txt').map(line => +line.match(/\d+/)[0]);
 const boss = { health: values[0], damage: values[1] };
 
-console.log(part1(boss), part2(boss));
+console.log('Part 1:', part1(boss));
+console.log('Part 2:', part2(boss));

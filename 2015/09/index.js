@@ -58,4 +58,5 @@ readLines('input.txt').forEach(line => {
 
 const distances = findDistances(graph);
 
-console.log(distances.smallest, distances.greatest);
+console.log('Part 1:', distances.smallest);
+console.log('Part 2:', distances.greatest);

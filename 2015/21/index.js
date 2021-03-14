@@ -1,5 +1,29 @@
 const { readLines } = require('../utils/file-io');
 
+const part1 = boss => {
+  let minCost = Infinity;
+
+  for (const { scenario, winner } of playScenarios(boss)) {
+    if ('player' === winner && scenario.cost < minCost) {
+      minCost = scenario.cost;
+    }
+  }
+
+  return minCost;
+};
+
+const part2 = boss => {
+  let maxCost = -Infinity;
+
+  for (const { scenario, winner } of playScenarios(boss)) {
+    if ('boss' === winner && scenario.cost > maxCost) {
+      maxCost = scenario.cost;
+    }
+  }
+
+  return maxCost;
+};
+
 const shop = {
   weapons: [
     { type: 'w', name: 'Dagger', cost: 8, damage: 4, armor: 0 },
@@ -27,10 +51,7 @@ const shop = {
   ],
 };
 
-const cartesianProduct = (...a) => a.reduce((a, b) => a.flatMap(d => b.map(e => [d, e].flat())));
-const sumField = (items, field) => items.reduce((sum, item) => sum + item[field], 0);
-
-function *playScenarios(boss) {
+const playScenarios = function* (boss) {
   const possibilities = cartesianProduct(shop.weapons, shop.armor, shop.rings, shop.rings)
     .filter(items => {
       const [ring1, ring2] = items.filter(({ type }) => 'r' === type);
@@ -59,31 +80,11 @@ const playScenario = ({ player, boss }) => {
   return playerTurns <= bossTurns ? 'player' : 'boss';
 };
 
-const part1 = boss => {
-  let minCost = Infinity;
-
-  for (const { scenario, winner } of playScenarios(boss)) {
-    if ('player' === winner && scenario.cost < minCost) {
-      minCost = scenario.cost;
-    }
-  }
-
-  return minCost;
-};
-
-const part2 = boss => {
-  let maxCost = -Infinity;
-
-  for (const { scenario, winner } of playScenarios(boss)) {
-    if ('boss' === winner && scenario.cost > maxCost) {
-      maxCost = scenario.cost;
-    }
-  }
-
-  return maxCost;
-};
+const cartesianProduct = (...a) => a.reduce((a, b) => a.flatMap(d => b.map(e => [d, e].flat())));
+const sumField = (items, field) => items.reduce((sum, item) => sum + item[field], 0);
 
 const values = readLines('input.txt').map(line => +line.match(/\d+/)[0]);
 const boss = { health: values[0], damage: values[1], armor: values[2] };
 
-console.log(part1(boss), part2(boss));
+console.log('Part 1:', part1(boss));
+console.log('Part 2:', part2(boss));

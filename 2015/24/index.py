@@ -2,18 +2,11 @@ import fileinput
 import itertools
 import math
 
-def find_groups(weights, weight_per_group):
-  size = 2
+def part1(weights):
+  return find_optimal_arrangement(weights, 3)
 
-  while size <= len(weights):
-    for combination in itertools.combinations(weights, size):
-      if sum(combination) == weight_per_group:
-        yield combination
-
-    size += 1
-
-def group_exists(weights, weight_per_group):
-  return next(find_groups(weights, weight_per_group)) != None
+def part2(weights):
+  return find_optimal_arrangement(weights, 4)
 
 def find_optimal_arrangement(weights, num_groups):
   weight_per_group = sum(weights) / num_groups
@@ -28,12 +21,20 @@ def find_optimal_arrangement(weights, num_groups):
 
     last_group_size = len(group)
 
-def part1(weights):
-  return find_optimal_arrangement(weights, 3)
+def find_groups(weights, weight_per_group):
+  size = 2
 
-def part2(weights):
-  return find_optimal_arrangement(weights, 4)
+  while size <= len(weights):
+    for combination in itertools.combinations(weights, size):
+      if sum(combination) == weight_per_group:
+        yield combination
+
+    size += 1
+
+def group_exists(weights, weight_per_group):
+  return next(find_groups(weights, weight_per_group)) != None
 
 weights = set([int(n) for n in fileinput.input()])
 
-print(part1(weights), part2(weights))
+print('Part 1:', part1(weights))
+print('Part 2:', part2(weights))

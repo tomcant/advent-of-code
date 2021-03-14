@@ -1,5 +1,8 @@
 const { readLines } = require('../utils/file-io');
 
+const part1 = lengthsMap => [...lengthsMap].reduce((total, [, subtotal]) => total + subtotal, 0);
+const part2 = lengthsMap => [...lengthsMap].sort(([a], [b]) => b - a).map(([, subtotal]) => subtotal).pop();
+
 const buildCombinationLengthsMap = (numbers, target) => {
   const map = new Map();
 
@@ -24,9 +27,7 @@ const combinations = numbers => {
   return [...withHead, ...withoutHead];
 };
 
-const part1 = lengthsMap => [...lengthsMap].reduce((total, [, subtotal]) => total + subtotal, 0);
-const part2 = lengthsMap => [...lengthsMap].sort(([a], [b]) => b - a).map(([, subtotal]) => subtotal).pop();
-
 const lengthsMap = buildCombinationLengthsMap(readLines('input.txt').map(Number), 150);
 
-console.log(part1(lengthsMap), part2(lengthsMap));
+console.log('Part 1:', part1(lengthsMap));
+console.log('Part 2:', part2(lengthsMap));

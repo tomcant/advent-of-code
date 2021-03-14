@@ -1,4 +1,20 @@
+const { Queue } = require('../utils/queue');
 const { readLines } = require('../utils/file-io');
+
+const part1 = instructions => resolve(instructions)['a'];
+
+const part2 = instructions => {
+  const p1a = part1(instructions);
+
+  for (let i = 0; i < instructions.length; ++i) {
+    if (instructions[i].match(/-> b$/)) {
+      instructions[i] = `${p1a} -> b`;
+      break;
+    }
+  }
+
+  return resolve(instructions)['a'];
+};
 
 const resolvers = {
   '^\\d+$': ([number]) => number,
@@ -18,25 +34,28 @@ const resolvers = {
 };
 
 const resolve = instructions => {
+  const queue = new Queue([...instructions]);
   const wires = {};
 
-  while (instructions.length) {
-    for (const index in instructions) {
-      const [operation, wire] = instructions[index].split('->').map(str => str.trim());
+  while (!queue.isEmpty()) {
+    const instruction = queue.dequeue();
+    const [operation, wire] = instruction.split('->').map(str => str.trim());
 
-      for (const [regex, resolver] of Object.entries(resolvers)) {
-        const matches = operation.match(regex);
+    for (const [regex, resolver] of Object.entries(resolvers)) {
+      const matches = operation.match(regex);
 
-        if (matches) {
-          let resolution = resolver(matches, wires);
+      if (matches) {
+        let resolution = resolver(matches, wires);
 
-          if (null !== resolution) {
-            wires[wire] = resolution;
-            instructions.splice(index, 1);
-            break;
-          }
+        if (null !== resolution) {
+          wires[wire] = resolution;
+          break;
         }
       }
+    }
+
+    if (wires[wire] === undefined) {
+      queue.enqueue(instruction);
     }
   }
 
@@ -44,16 +63,6 @@ const resolve = instructions => {
 };
 
 const instructions = readLines('input.txt');
-const part1resolved = resolve(instructions.slice());
 
-console.log(part1resolved['a']);
-
-for (const index in instructions) {
-  if (instructions[index].match(/-> b$/)) {
-    instructions[index] = part1resolved['a'] + ' -> b';
-    break;
-  }
-}
-
-const part2resolved = resolve(instructions.slice());
-console.log(part2resolved['a']);
+console.log('Part 1:', part1(instructions));
+console.log('Part 2:', part2(instructions));

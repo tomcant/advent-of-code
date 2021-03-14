@@ -1,12 +1,7 @@
 const { readLines } = require('../utils/file-io');
 
-const ingredients = readLines('input.txt').map(line => {
-  const [, attributes] = line.match(/\w+:\s(.+)/);
-
-  return Object.fromEntries(
-    attributes.split(', ').map(attribute => attribute.split(' '))
-  );
-});
+const part1 = ingredients => findHighestScoringRecipe(ingredients, 100, null);
+const part2 = ingredients => findHighestScoringRecipe(ingredients, 100, 500);
 
 const score = (ingredients, amounts, attributes) =>
   attributes.reduce((score, attribute) => {
@@ -45,7 +40,10 @@ const findHighestScoringRecipe = (ingredients, total, requiredCalories, amount =
   return highestScore;
 };
 
-const part1 = ingredients => findHighestScoringRecipe(ingredients, 100, null);
-const part2 = ingredients => findHighestScoringRecipe(ingredients, 100, 500);
+const ingredients = readLines('input.txt').map(line => {
+  const [, attributes] = line.match(/\w+:\s(.+)/);
+  return Object.fromEntries(attributes.split(', ').map(attribute => attribute.split(' ')));
+});
 
-console.log(part1(ingredients), part2(ingredients));
+console.log('Part 1:', part1(ingredients));
+console.log('Part 2:', part2(ingredients));
