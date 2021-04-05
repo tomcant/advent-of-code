@@ -25,19 +25,7 @@ fn part1(spreadsheet: Vec<Vec<i32>>) -> i32 {
     let mut checksum = 0;
 
     for row in spreadsheet {
-        let mut min = f32::INFINITY as i32;
-        let mut max = -f32::INFINITY as i32;
-
-        for number in row {
-            if number < min {
-                min = number;
-            }
-            if number > max {
-                max = number;
-            }
-        }
-
-        checksum += max - min;
+        checksum += row.iter().max().unwrap() - row.iter().min().unwrap();
     }
 
     return checksum;
