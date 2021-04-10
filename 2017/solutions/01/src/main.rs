@@ -1,6 +1,5 @@
 fn main() {
     let input = std::include_str!("input.txt");
-
     println!("Part 1: {}", part1(parse_input(input)));
     println!("Part 2: {}", part2(parse_input(input)));
 }
