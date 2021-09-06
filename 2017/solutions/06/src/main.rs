@@ -52,21 +52,12 @@ fn redistribute_largest_bank(banks: &mut [i32]) {
     let block_count = std::mem::replace(&mut banks[index_of_largest_bank], 0);
 
     for i in 0..block_count {
-        let index = (index_of_largest_bank + 1 + i as usize) % banks.len();
-        banks[index] += 1;
+        banks[(index_of_largest_bank + 1 + i as usize) % banks.len()] += 1;
     }
 }
 
 fn find_index_of_largest_bank(banks: &[i32]) -> usize {
-    let mut index = 0;
-
-    for (i, &count) in banks.iter().enumerate() {
-        if count > banks[index] {
-            index = i;
-        }
-    }
-
-    index
+    banks.iter().enumerate().fold(0, |index, (i, &count)| if count > banks[index] { i } else { index })
 }
 
 fn hash_banks(banks: &[i32]) -> String {
