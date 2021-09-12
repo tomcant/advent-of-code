@@ -10,7 +10,11 @@ struct Node<'a> {
 
 impl<'a> Node<'a> {
     fn new(weight: i32, children: Vec<&'a str>) -> Self {
-        Self { weight, parent: None, children }
+        Self {
+            weight,
+            parent: None,
+            children,
+        }
     }
 }
 
@@ -24,11 +28,7 @@ fn parse_input(input: &str) -> HashMap<&str, Node> {
     let mut nodes = HashMap::new();
     let mut parents = HashMap::<&str, &str>::new();
 
-    let re = Regex::new(r"(?x)
-      ^(?P<name>\w+)
-      \s\((?P<weight>[0-9]+)\)
-      (\s->\s(?P<children>.+))?$
-    ").unwrap();
+    let re = Regex::new(r"^(?P<name>\w+)\s\((?P<weight>[0-9]+)\)(\s->\s(?P<children>.+))?$").unwrap();
 
     for line in input.lines() {
         let caps = re.captures(line).unwrap();

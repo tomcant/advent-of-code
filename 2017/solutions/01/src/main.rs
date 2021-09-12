@@ -18,14 +18,11 @@ fn part2(numbers: Vec<u32>) -> u32 {
 }
 
 fn calc_sum(numbers: Vec<u32>, step: usize) -> u32 {
-    numbers
-        .iter()
-        .enumerate()
-        .fold(0, |sum, (idx, num)| {
-            if num == &numbers[(idx + step) % numbers.len()] {
-                sum + num
-            } else {
-                sum
-            }
-        })
+    numbers.iter().enumerate().fold(0, |sum, (idx, num)| {
+        if num == &numbers[(idx + step) % numbers.len()] {
+            sum + num
+        } else {
+            sum
+        }
+    })
 }

@@ -3,7 +3,10 @@ use std::collections::HashMap;
 use std::str::FromStr;
 
 #[derive(Debug)]
-enum Operator { Inc, Dec }
+enum Operator {
+    Inc,
+    Dec,
+}
 
 impl FromStr for Operator {
     type Err = ();
@@ -12,7 +15,7 @@ impl FromStr for Operator {
         match input {
             "inc" => Ok(Self::Inc),
             "dec" => Ok(Self::Dec),
-            _     => Err(()),
+            _ => Err(()),
         }
     }
 }
@@ -67,11 +70,11 @@ impl FromStr for Equality {
         match input {
             "==" => Ok(Self::Equal),
             "!=" => Ok(Self::NotEqual),
-            "<"  => Ok(Self::LessThan),
+            "<" => Ok(Self::LessThan),
             "<=" => Ok(Self::LessThanOrEqual),
-            ">"  => Ok(Self::GreaterThan),
+            ">" => Ok(Self::GreaterThan),
             ">=" => Ok(Self::GreaterThanOrEqual),
-            _    => Err(()),
+            _ => Err(()),
         }
     }
 }
@@ -100,11 +103,11 @@ impl Condition<'_> {
         let register_val = registers.get(self.lhs).unwrap_or(&0);
 
         match self.eq {
-            Equality::Equal              => *register_val == self.rhs,
-            Equality::NotEqual           => *register_val != self.rhs,
-            Equality::LessThan           => *register_val < self.rhs,
-            Equality::LessThanOrEqual    => *register_val <= self.rhs,
-            Equality::GreaterThan        => *register_val > self.rhs,
+            Equality::Equal => *register_val == self.rhs,
+            Equality::NotEqual => *register_val != self.rhs,
+            Equality::LessThan => *register_val < self.rhs,
+            Equality::LessThanOrEqual => *register_val <= self.rhs,
+            Equality::GreaterThan => *register_val > self.rhs,
             Equality::GreaterThanOrEqual => *register_val >= self.rhs,
         }
     }
@@ -117,10 +120,13 @@ fn main() {
 }
 
 fn parse_input(input: &str) -> Vec<(Instruction, Condition)> {
-    input.lines().map(|line| {
-        let parts = line.split(" if ").collect::<Vec<&str>>();
-        (parts[0].into(), parts[1].into())
-    }).collect()
+    input
+        .lines()
+        .map(|line| {
+            let parts = line.split(" if ").collect::<Vec<&str>>();
+            (parts[0].into(), parts[1].into())
+        })
+        .collect()
 }
 
 fn part1(lines: Vec<(Instruction, Condition)>) -> i32 {

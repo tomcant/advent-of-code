@@ -37,21 +37,21 @@ fn read_stream(stream: &str) -> (i32, i32) {
                     depth += 1;
                     score += depth;
                 }
-            },
+            }
             '}' => {
                 if !is_garbage {
                     depth -= 1;
                 }
-            },
+            }
             '<' => is_garbage = true,
             '>' => {
                 is_garbage = false;
                 garbage_count -= 1;
-            },
+            }
             '!' => {
                 should_skip = true;
                 garbage_count -= 1;
-            },
+            }
             _ => (),
         };
     }
