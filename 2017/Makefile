@@ -1,4 +1,4 @@
-DOCKER := docker run --rm -it -v $(PWD):/aoc:rw,delegated -w /aoc -e CARGO_HOME=/aoc/.cargo rust:1.54.0-alpine3.14
+DOCKER := docker run --rm -it -v $(PWD):/aoc:rw,delegated -w /aoc -e CARGO_HOME=/aoc/.cargo rust:1.55.0-alpine3.14
 
 solve/%:
 	@$(DOCKER) cargo run --release --quiet --manifest-path solutions/$*/Cargo.toml
