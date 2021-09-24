@@ -1,0 +1,8 @@
+[package]
+name = "advent-of-code-2017"
+version = "0.1.0"
+authors = []
+edition = "2018"
+
+[dependencies]
+itertools = "0.10.1"

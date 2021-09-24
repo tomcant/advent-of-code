@@ -12,10 +12,10 @@ fn parse_input(input: &str) -> HashMap<i32, Vec<i32>> {
     input
         .lines()
         .map(|line| {
-            let mut parts = line.split("<->");
+            let mut parts = line.split(" <-> ");
             (
-                parts.next().unwrap().trim().parse().unwrap(),
-                parts.next().unwrap().split(",").map(|s| s.trim().parse().unwrap()).collect(),
+                parts.next().unwrap().parse().unwrap(),
+                parts.next().unwrap().split(", ").map(|s| s.parse().unwrap()).collect(),
             )
         })
         .collect()
