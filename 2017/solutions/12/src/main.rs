@@ -15,7 +15,12 @@ fn parse_input(input: &str) -> HashMap<i32, Vec<i32>> {
             let mut parts = line.split(" <-> ");
             (
                 parts.next().unwrap().parse().unwrap(),
-                parts.next().unwrap().split(", ").map(|s| s.parse().unwrap()).collect(),
+                parts
+                    .next()
+                    .unwrap()
+                    .split(", ")
+                    .map(|s| s.parse().unwrap())
+                    .collect(),
             )
         })
         .collect()
@@ -31,7 +36,10 @@ fn part2(programs: HashMap<i32, Vec<i32>>) -> i32 {
     let keys: HashSet<i32> = programs.keys().cloned().collect();
 
     while seen.len() < keys.len() {
-        seen.extend(&discover_group(*(&keys - &seen).iter().next().unwrap(), &programs));
+        seen.extend(&discover_group(
+            *(&keys - &seen).iter().next().unwrap(),
+            &programs,
+        ));
         total_groups += 1;
     }
 

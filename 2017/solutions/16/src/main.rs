@@ -21,8 +21,14 @@ fn parse_input(input: &str) -> Vec<DanceMove> {
 
             match first_char {
                 "s" => Spin(attrs[0].parse().expect("Spins")),
-                "x" => Exchange(attrs[0].parse().expect("Exchange A"), attrs[1].parse().expect("Exchange B")),
-                "p" => Partner(attrs[0].parse().expect("Partner A"), attrs[1].parse().expect("Partner B")),
+                "x" => Exchange(
+                    attrs[0].parse().expect("Exchange A"),
+                    attrs[1].parse().expect("Exchange B"),
+                ),
+                "p" => Partner(
+                    attrs[0].parse().expect("Partner A"),
+                    attrs[1].parse().expect("Partner B"),
+                ),
                 _ => panic!(),
             }
         })
@@ -59,8 +65,14 @@ fn dance(moves: &Vec<DanceMove>, programs: String) -> String {
             Spin(spins) => programs.rotate_right(*spins),
             Exchange(a, b) => programs.swap(*a, *b),
             Partner(a, b) => {
-                let a_idx = programs.iter().position(|c| c == a).expect("Partner A index");
-                let b_idx = programs.iter().position(|c| c == b).expect("Partner B index");
+                let a_idx = programs
+                    .iter()
+                    .position(|c| c == a)
+                    .expect("Partner A index");
+                let b_idx = programs
+                    .iter()
+                    .position(|c| c == b)
+                    .expect("Partner B index");
                 programs.swap(a_idx, b_idx)
             }
         }

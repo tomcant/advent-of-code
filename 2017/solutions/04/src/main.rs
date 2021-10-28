@@ -8,18 +8,22 @@ fn main() {
 }
 
 fn parse_input(input: &str) -> Vec<Vec<&str>> {
-    input.lines().map(|line| line.split_whitespace().collect()).collect()
+    input
+        .lines()
+        .map(|line| line.split_whitespace().collect())
+        .collect()
 }
 
 fn part1(passphrases: Vec<Vec<&str>>) -> i32 {
-    passphrases
-        .iter()
-        .fold(0, |cnt, p| cnt + (p.len() == HashSet::<&str>::from_iter(p.iter().cloned()).len()) as i32)
+    passphrases.iter().fold(0, |cnt, p| {
+        cnt + (p.len() == HashSet::<&str>::from_iter(p.iter().cloned()).len()) as i32
+    })
 }
 
 fn part2(passphrases: Vec<Vec<&str>>) -> i32 {
     passphrases.iter().fold(0, |cnt, p| {
-        cnt + (p.len() == HashSet::<String>::from_iter(p.iter().cloned().map(sort_chars)).len()) as i32
+        cnt + (p.len() == HashSet::<String>::from_iter(p.iter().cloned().map(sort_chars)).len())
+            as i32
     })
 }
 

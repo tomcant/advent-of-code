@@ -45,15 +45,19 @@ fn parse_input(input: &str) -> Vec<&str> {
 }
 
 fn part1(path: Vec<&str>) -> i32 {
-    path.iter().fold(Vec2d::origin(), |pos, dir| pos + Vec2d::from_dir(dir)).dist_from_origin()
+    path.iter()
+        .fold(Vec2d::origin(), |pos, dir| pos + Vec2d::from_dir(dir))
+        .dist_from_origin()
 }
 
 fn part2(path: Vec<&str>) -> i32 {
-    let (max_dist, _) = path.iter().fold((0, Vec2d::origin()), |(max_dist, pos), dir| {
-        let next_pos = pos + Vec2d::from_dir(dir);
-        let dist = next_pos.dist_from_origin();
-        (i32::max(dist, max_dist), next_pos)
-    });
+    let (max_dist, _) = path
+        .iter()
+        .fold((0, Vec2d::origin()), |(max_dist, pos), dir| {
+            let next_pos = pos + Vec2d::from_dir(dir);
+            let dist = next_pos.dist_from_origin();
+            (i32::max(dist, max_dist), next_pos)
+        });
 
     max_dist
 }

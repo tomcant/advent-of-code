@@ -149,7 +149,11 @@ fn part2(lines: Vec<(Instruction, Condition)>) -> i32 {
         if condition.test(&registers) {
             instruction.apply(&mut registers);
             let max = registers.values().max().unwrap();
-            max_register = if *max > max_register { *max } else { max_register };
+            max_register = if *max > max_register {
+                *max
+            } else {
+                max_register
+            };
         }
     }
 

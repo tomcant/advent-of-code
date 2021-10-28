@@ -29,7 +29,11 @@ impl FromStr for Vec3d {
     type Err = ();
 
     fn from_str(input: &str) -> Result<Self, Self::Err> {
-        let nums: Vec<_> = input.trim().split(',').map(|s| s.parse().expect("Vec3d part")).collect();
+        let nums: Vec<_> = input
+            .trim()
+            .split(',')
+            .map(|s| s.parse().expect("Vec3d part"))
+            .collect();
         Ok(Vec3d(nums[0], nums[1], nums[2]))
     }
 }
@@ -61,9 +65,24 @@ impl FromStr for Particle {
         .unwrap();
 
         let caps = re.captures(input).unwrap();
-        let pos = caps.name("pos").unwrap().as_str().parse().expect("Parsed position");
-        let vel = caps.name("vel").unwrap().as_str().parse().expect("Parsed velocity");
-        let acc = caps.name("acc").unwrap().as_str().parse().expect("Parsed acceleration");
+        let pos = caps
+            .name("pos")
+            .unwrap()
+            .as_str()
+            .parse()
+            .expect("Parsed position");
+        let vel = caps
+            .name("vel")
+            .unwrap()
+            .as_str()
+            .parse()
+            .expect("Parsed velocity");
+        let acc = caps
+            .name("acc")
+            .unwrap()
+            .as_str()
+            .parse()
+            .expect("Parsed acceleration");
 
         Ok(Particle { pos, vel, acc })
     }
@@ -76,7 +95,10 @@ fn main() {
 }
 
 fn parse_input(input: &str) -> Vec<Particle> {
-    input.lines().map(|line| line.parse().expect("Parsed particle")).collect()
+    input
+        .lines()
+        .map(|line| line.parse().expect("Parsed particle"))
+        .collect()
 }
 
 fn part1(particles: Vec<Particle>) -> usize {
@@ -110,7 +132,10 @@ fn get_closest_particle_idx(particles: &Vec<Particle>) -> usize {
 }
 
 fn get_particle_distances(particles: &Vec<Particle>) -> Vec<i32> {
-    particles.iter().map(|p| p.pos.manhattan_distance()).collect()
+    particles
+        .iter()
+        .map(|p| p.pos.manhattan_distance())
+        .collect()
 }
 
 fn remove_colliding_particles(particles: &mut Vec<Particle>) {

@@ -67,7 +67,8 @@ impl Runtime {
                 if input.len() == 0 {
                     return None;
                 }
-                self.registers.insert((*x).clone(), input.pop_front().expect("Next input"));
+                self.registers
+                    .insert((*x).clone(), input.pop_front().expect("Next input"));
             }
             Instruction::Jgz(x, y) => {
                 if self.resolve(x) > 0 {

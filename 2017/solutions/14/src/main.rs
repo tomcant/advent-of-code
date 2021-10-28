@@ -7,7 +7,10 @@ fn main() {
 }
 
 fn part1(key: &str) -> u32 {
-    build_disk(key).data.iter().fold(0, |cnt, data| cnt + data.count_ones())
+    build_disk(key)
+        .data
+        .iter()
+        .fold(0, |cnt, data| cnt + data.count_ones())
 }
 
 fn part2(key: &str) -> u32 {
@@ -87,7 +90,9 @@ impl DiskPos {
 
 fn build_disk(key: &str) -> Disk {
     Disk {
-        data: (0..128).map(|idx| generate_knot_hash(&format!("{}-{}", key, idx))).collect(),
+        data: (0..128)
+            .map(|idx| generate_knot_hash(&format!("{}-{}", key, idx)))
+            .collect(),
     }
 }
 
@@ -97,7 +102,9 @@ fn generate_knot_hash(input: &str) -> u128 {
     generate_dense_hash(lengths)
         .iter()
         .enumerate()
-        .fold(0, |hash, (idx, val)| hash | ((reverse_bits(*val) as u128) << 8 * idx))
+        .fold(0, |hash, (idx, val)| {
+            hash | ((reverse_bits(*val) as u128) << 8 * idx)
+        })
 }
 
 fn generate_dense_hash(lengths: Vec<u8>) -> Vec<u8> {

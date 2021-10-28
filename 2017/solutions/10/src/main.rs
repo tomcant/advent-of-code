@@ -18,7 +18,10 @@ fn part2(input: &str) -> String {
 fn generate_knot_hash(input: &str) -> String {
     let lengths = [input.bytes().collect(), vec![17, 31, 73, 47, 23]].concat();
 
-    generate_dense_hash(lengths).iter().map(|val| format!("{:02x}", val)).collect()
+    generate_dense_hash(lengths)
+        .iter()
+        .map(|val| format!("{:02x}", val))
+        .collect()
 }
 
 fn generate_dense_hash(lengths: Vec<u8>) -> Vec<u8> {

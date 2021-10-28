@@ -53,7 +53,9 @@ fn part2(input: i32) -> i32 {
         x += dx;
         y += dy;
 
-        let term = get_neighbour_positions(x, y).iter().fold(0, |sum, pos| sum + map.get(pos).unwrap_or(&0));
+        let term = get_neighbour_positions(x, y)
+            .iter()
+            .fold(0, |sum, pos| sum + map.get(pos).unwrap_or(&0));
 
         if term > input {
             return term;

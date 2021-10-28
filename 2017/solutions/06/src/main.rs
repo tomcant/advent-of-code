@@ -8,7 +8,10 @@ fn main() {
 }
 
 fn parse_input(input: &str) -> Vec<i32> {
-    input.split_whitespace().map(|n| n.parse().unwrap()).collect()
+    input
+        .split_whitespace()
+        .map(|n| n.parse().unwrap())
+        .collect()
 }
 
 fn part1(mut banks: Vec<i32>) -> i32 {
@@ -57,7 +60,10 @@ fn redistribute_largest_bank(banks: &mut [i32]) {
 }
 
 fn find_index_of_largest_bank(banks: &[i32]) -> usize {
-    banks.iter().enumerate().fold(0, |index, (i, &count)| if count > banks[index] { i } else { index })
+    banks.iter().enumerate().fold(
+        0,
+        |index, (i, &count)| if count > banks[index] { i } else { index },
+    )
 }
 
 fn hash_banks(banks: &[i32]) -> String {

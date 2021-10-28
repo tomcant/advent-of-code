@@ -28,13 +28,21 @@ fn parse_input(input: &str) -> HashMap<&str, Node> {
     let mut nodes = HashMap::new();
     let mut parents = HashMap::<&str, &str>::new();
 
-    let re = Regex::new(r"^(?P<name>\w+)\s\((?P<weight>[0-9]+)\)(\s->\s(?P<children>.+))?$").unwrap();
+    let re =
+        Regex::new(r"^(?P<name>\w+)\s\((?P<weight>[0-9]+)\)(\s->\s(?P<children>.+))?$").unwrap();
 
     for line in input.lines() {
         let caps = re.captures(line).unwrap();
         let name = caps.name("name").unwrap().as_str();
-        let weight = caps.name("weight").unwrap().as_str().parse::<i32>().unwrap();
-        let children = caps.name("children").map_or(vec![], |m| m.as_str().split(", ").collect());
+        let weight = caps
+            .name("weight")
+            .unwrap()
+            .as_str()
+            .parse::<i32>()
+            .unwrap();
+        let children = caps
+            .name("children")
+            .map_or(vec![], |m| m.as_str().split(", ").collect());
 
         for child in children.iter() {
             parents.insert(child, name);
@@ -64,10 +72,17 @@ fn part2(nodes: HashMap<&str, Node>) -> i32 {
 }
 
 fn find_root_name<'a>(nodes: &HashMap<&'a str, Node>) -> &'a str {
-    nodes.iter().find(|(_, node)| node.parent == None).unwrap().0
+    nodes
+        .iter()
+        .find(|(_, node)| node.parent == None)
+        .unwrap()
+        .0
 }
 
-fn find_balance_correction<'a>(node_name: &'a str, nodes: &'a HashMap<&str, Node>) -> Option<(&'a str, i32)> {
+fn find_balance_correction<'a>(
+    node_name: &'a str,
+    nodes: &'a HashMap<&str, Node>,
+) -> Option<(&'a str, i32)> {
     let node = nodes.get(node_name).unwrap();
     let mut weight_counts = HashMap::<i32, i32>::new();
     let mut subtree_weights = HashMap::<&str, i32>::new();
@@ -87,7 +102,10 @@ fn find_balance_correction<'a>(node_name: &'a str, nodes: &'a HashMap<&str, Node
     let correction = find_balance_correction(imbalanced_name, &nodes);
 
     if correction == None {
-        let correct_weight = subtree_weights.values().find(|val| *val != imbalanced_weight).unwrap();
+        let correct_weight = subtree_weights
+            .values()
+            .find(|val| *val != imbalanced_weight)
+            .unwrap();
 
         return Some((imbalanced_name, correct_weight - imbalanced_weight));
     }
@@ -98,7 +116,9 @@ fn find_balance_correction<'a>(node_name: &'a str, nodes: &'a HashMap<&str, Node
 fn get_subtree_weight(node_name: &str, nodes: &HashMap<&str, Node>) -> i32 {
     let node = nodes.get(node_name).unwrap();
 
-    node.children.iter().fold(node.weight, |acc, child| acc + get_subtree_weight(child, nodes))
+    node.children.iter().fold(node.weight, |acc, child| {
+        acc + get_subtree_weight(child, nodes)
+    })
 }
 
 fn find_key_for_value<K, V: std::cmp::PartialEq>(map: &HashMap<K, V>, value: V) -> Option<&K> {

@@ -10,7 +10,12 @@ fn main() {
 fn parse_input(input: &str) -> HashMap<i32, i32> {
     input
         .lines()
-        .map(|line| line.split(": ").map(|s| s.parse().unwrap()).collect_tuple().unwrap())
+        .map(|line| {
+            line.split(": ")
+                .map(|s| s.parse().unwrap())
+                .collect_tuple()
+                .unwrap()
+        })
         .collect()
 }
 
@@ -27,7 +32,11 @@ fn part1(firewall: HashMap<i32, i32>) -> i32 {
 
 fn part2(firewall: HashMap<i32, i32>) -> i32 {
     (0..)
-        .find(|delay| firewall.iter().all(|(depth, range)| is_not_caught(depth + delay, *range)))
+        .find(|delay| {
+            firewall
+                .iter()
+                .all(|(depth, range)| is_not_caught(depth + delay, *range))
+        })
         .unwrap()
 }
 

@@ -8,7 +8,15 @@ fn main() {
 
 fn parse_input(input: &str) -> (u64, u64) {
     let re = Regex::new(r"(\d+)$").unwrap();
-    let pluck = |s| re.captures(s).unwrap().get(0).unwrap().as_str().parse().unwrap();
+    let pluck = |s| {
+        re.captures(s)
+            .unwrap()
+            .get(0)
+            .unwrap()
+            .as_str()
+            .parse()
+            .unwrap()
+    };
 
     let mut lines = input.lines();
     (pluck(lines.next().unwrap()), pluck(lines.next().unwrap()))
