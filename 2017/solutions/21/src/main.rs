@@ -62,10 +62,7 @@ impl Image {
     fn variations(&self) -> Vec<Self> {
         let mut variations = vec![];
 
-        let flips = vec![
-            self.clone(),
-            self.clone().vert_flip(),
-        ];
+        let flips = vec![self.clone(), self.clone().vert_flip()];
 
         for flip in flips {
             let mut initial = flip.clone();
