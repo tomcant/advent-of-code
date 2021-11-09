@@ -61,7 +61,7 @@ impl Runtime {
                     if self.resolve(x) != 0 {
                         self.ptr += self.resolve(y) as usize - 1;
                     }
-                },
+                }
                 Instruction::Jpr(x, y) => {
                     if is_prime(self.resolve(x)) {
                         self.ptr += self.resolve(y) as usize - 1;
