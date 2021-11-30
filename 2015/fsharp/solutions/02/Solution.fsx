@@ -1,6 +1,6 @@
 open Helpers
 
-let parseInput = splitLines >> List.map (splitIntsOn 'x')
+let parseInput = splitLines >> List.map (splitIntsOn "x")
 
 let part1 =
   List.map

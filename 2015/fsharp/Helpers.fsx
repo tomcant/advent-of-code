@@ -1,11 +1,11 @@
 open System.Security
 open System.Text
 
-let splitOn char (str: string) = str.Split [| char |] |> Array.toList
+let splitOn (sep: string) (str: string) = str.Split sep |> Array.toList
 
-let splitIntsOn char str = splitOn char str |> List.map int
+let splitIntsOn sep str = splitOn sep str |> List.map int
 
-let splitLines str = splitOn '\n' str
+let splitLines str = splitOn "\n" str
 
 let isMatch pattern str =
   RegularExpressions.Regex.IsMatch(str, pattern)
