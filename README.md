@@ -8,3 +8,4 @@ My solutions to the [Advent of Code](https://adventofcode.com) programming puzzl
 - 2018, [Python](./2018/python)
 - 2019, ...
 - 2020, [JavaScript](./2020/javascript)
+- 2021, [F#](./2021/fsharp)
