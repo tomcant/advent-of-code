@@ -1,7 +1,7 @@
 let parseInput = id
 
 let origin = 0, 0
-let initialHouses = Set.ofList [ origin ]
+let initialHouses = Set [ origin ]
 
 let move (x, y) =
   function
