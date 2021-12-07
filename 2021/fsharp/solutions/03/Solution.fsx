@@ -52,7 +52,7 @@ let reduceReport commonBitFn defaultBit report =
 
          Some(next, (next, i + 1)))
   |> Seq.find (fun l -> l.Length = 1)
-  |> Seq.head
+  |> Seq.exactlyOne
 
 let oxygenGeneratorRating report = reduceReport mostCommonBit 1 report
 let co2ScrubberRating report = reduceReport leastCommonBit 0 report
