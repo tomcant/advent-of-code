@@ -32,7 +32,7 @@ export const part2 = (ranges: IpRange[]): number => {
 };
 
 export const parseInput = (input: string): IpRange[] =>
-  input.split('\n').map(line => {
+  input.split("\n").map((line) => {
     const [, from, to] = line.match(/(\d+)-(\d+)/);
     return [+from, +to];
   });

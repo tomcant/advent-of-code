@@ -7,3 +7,7 @@ install:
 .PHONY: solve/%
 solve/%:
 	@$(YARN) --silent solve $*
+
+.PHONY: format
+format:
+	@$(YARN) prettier --write .

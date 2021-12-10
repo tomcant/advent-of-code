@@ -1,14 +1,14 @@
-import Vec2d from '../../utils/vec2d';
+import Vec2d from "../../utils/vec2d";
 
 enum Direction {
-  Left = 'L',
-  Right = 'R'
+  Left = "L",
+  Right = "R",
 }
 
 type Instruction = [Direction, number];
 
 export const parseInput = (input: string): Instruction[] =>
-  input.split(', ').map(instruction => {
+  input.split(", ").map((instruction) => {
     const [dir, dist] = [instruction[0], instruction.substr(1)];
 
     if (dir !== Direction.Left && dir !== Direction.Right) {

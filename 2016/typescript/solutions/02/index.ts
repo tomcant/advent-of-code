@@ -1,16 +1,19 @@
 enum Direction {
-  Up = 'U',
-  Down = 'D',
-  Left = 'L',
-  Right = 'R'
+  Up = "U",
+  Down = "D",
+  Left = "L",
+  Right = "R",
 }
 
 type Instruction = Direction[];
 type Keypad = string[];
 
 export const parseInput = (input: string): Instruction[] =>
-  input.split('\n').map(instructions => instructions.split('') as Instruction);
+  input
+    .split("\n")
+    .map((instructions) => instructions.split("") as Instruction);
 
+// prettier-ignore
 export const part1 = (instructions: Instruction[]): string =>
   getDoorCode(
     instructions,
@@ -21,6 +24,7 @@ export const part1 = (instructions: Instruction[]): string =>
     ]
   );
 
+// prettier-ignore
 export const part2 = (instructions: Instruction[]): string =>
   getDoorCode(
     instructions,
@@ -34,12 +38,12 @@ export const part2 = (instructions: Instruction[]): string =>
   );
 
 const getDoorCode = (instructions: Instruction[], keypad: Keypad): string => {
-  const pad = ' '.repeat(keypad[0].length + 2);
-  const paddedKeys = [pad, ...keypad.map(s => ` ${s} `), pad];
-  const flatKeys = paddedKeys.join('');
+  const pad = " ".repeat(keypad[0].length + 2);
+  const paddedKeys = [pad, ...keypad.map((s) => ` ${s} `), pad];
+  const flatKeys = paddedKeys.join("");
 
-  let keyIndex = flatKeys.indexOf('5');
-  let code = '';
+  let keyIndex = flatKeys.indexOf("5");
+  let code = "";
 
   for (const instruction of instructions) {
     for (const dir of instruction) {
@@ -60,7 +64,7 @@ const getDoorCode = (instructions: Instruction[], keypad: Keypad): string => {
           break;
       }
 
-      if (' ' !== flatKeys[keyIndex + diff]) {
+      if (" " !== flatKeys[keyIndex + diff]) {
         keyIndex += diff;
       }
     }

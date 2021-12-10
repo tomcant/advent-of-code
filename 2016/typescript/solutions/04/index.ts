@@ -1,11 +1,11 @@
 type Room = {
-  name: string,
-  sector: number,
-  checksum: string,
+  name: string;
+  sector: number;
+  checksum: string;
 };
 
 export const parseInput = (input: string): Room[] =>
-  input.split('\n').map(line => {
+  input.split("\n").map((line) => {
     const [, name, sector, checksum] = line.match(/(.+)-(\d+)\[(\w+)]/);
     return { name, sector: +sector, checksum };
   });
@@ -19,14 +19,18 @@ export const part2 = (rooms: Room[]): number => {
       continue;
     }
 
-    let decryptedName = '';
+    let decryptedName = "";
 
     for (const char of room.name) {
-      decryptedName += '-' === char ? ' ' :
-        String.fromCharCode((char.charCodeAt(0) - 97 + room.sector % 26) % 26 + 97);
+      decryptedName +=
+        "-" === char
+          ? " "
+          : String.fromCharCode(
+              ((char.charCodeAt(0) - 97 + (room.sector % 26)) % 26) + 97
+            );
     }
 
-    if ('northpole object storage' === decryptedName) {
+    if ("northpole object storage" === decryptedName) {
       return room.sector;
     }
   }
@@ -36,9 +40,13 @@ const isRoomReal = (room: Room): boolean => {
   let lastChar, lastCount;
 
   for (const char of room.checksum) {
-    const count = room.name.match(RegExp(char, 'g'))?.length;
+    const count = room.name.match(RegExp(char, "g"))?.length;
 
-    if (!count || count > lastCount || count === lastCount && char.charCodeAt(0) < lastChar.charCodeAt(0)) {
+    if (
+      !count ||
+      count > lastCount ||
+      (count === lastCount && char.charCodeAt(0) < lastChar.charCodeAt(0))
+    ) {
       return false;
     }
 

@@ -1,20 +1,39 @@
-type Operator = 'cpy' | 'inc' | 'dec' | 'add' | 'mul' | 'jnz' | 'tgl' | 'nop';
-type Instruction = { op: Operator, args?: string[] };
+type Operator = "cpy" | "inc" | "dec" | "add" | "mul" | "jnz" | "tgl" | "nop";
+type Instruction = { op: Operator; args?: string[] };
 type Registers = Map<string, number>;
 
 export const parseInput = (input: string): Instruction[] =>
-  input.split('\n').map(line => {
+  input.split("\n").map((line) => {
     const [, op, args] = line.match(/([^\s]+)\s(.+)/);
-    return { op: op as Operator, args: args.split(' ') };
+    return { op: op as Operator, args: args.split(" ") };
   });
 
 export const part1 = (instructions: Instruction[]): number =>
-  run(instructions, new Map<string, number>([['a', 7], ['b', 0], ['c', 0], ['d', 0]])).get('a');
+  run(
+    instructions,
+    new Map<string, number>([
+      ["a", 7],
+      ["b", 0],
+      ["c", 0],
+      ["d", 0],
+    ])
+  ).get("a");
 
 export const part2 = (instructions: Instruction[]): number =>
-  run(instructions, new Map<string, number>([['a', 12], ['b', 0], ['c', 0], ['d', 0]])).get('a');
+  run(
+    instructions,
+    new Map<string, number>([
+      ["a", 12],
+      ["b", 0],
+      ["c", 0],
+      ["d", 0],
+    ])
+  ).get("a");
 
-const run = (initialInstructions: Instruction[], initialRegisters: Registers): Registers => {
+const run = (
+  initialInstructions: Instruction[],
+  initialRegisters: Registers
+): Registers => {
   const instructions = optimise(initialInstructions);
   const registers = initialRegisters;
   let pointer = 0;
@@ -24,36 +43,45 @@ const run = (initialInstructions: Instruction[], initialRegisters: Registers): R
     let pointerInc = 1;
 
     switch (op) {
-      case 'cpy':
-        registers.set(args[1], registers.has(args[0]) ? registers.get(args[0]) : +args[0]);
+      case "cpy":
+        registers.set(
+          args[1],
+          registers.has(args[0]) ? registers.get(args[0]) : +args[0]
+        );
         break;
-      case 'inc':
+      case "inc":
         registers.set(args[0], registers.get(args[0]) + 1);
         break;
-      case 'dec':
+      case "dec":
         registers.set(args[0], registers.get(args[0]) - 1);
         break;
-      case 'jnz':
+      case "jnz":
         if (registers.get(args[0]) || +args[0]) {
           pointerInc = registers.get(args[1]) || +args[1];
         }
         break;
-      case 'add':
+      case "add":
         registers.set(args[0], registers.get(args[0]) + registers.get(args[1]));
         break;
-      case 'mul':
+      case "mul":
         registers.set(args[0], registers.get(args[0]) * registers.get(args[1]));
         break;
-      case 'nop':
+      case "nop":
         break;
-      case 'tgl':
+      case "tgl":
         const toggleIdx = pointer + registers.get(args[0]);
 
         if (toggleIdx < instructions.length) {
           const instruction = instructions[toggleIdx];
-          instruction.op = instruction.args.length === 1
-            ? instruction.op === 'inc' ? 'dec' : 'inc'
-            : instruction.op === 'jnz' ? 'cpy' : 'jnz';
+          // prettier-ignore
+          instruction.op =
+            instruction.args.length === 1
+              ? instruction.op === 'inc'
+                ? 'dec'
+                : 'inc'
+              : instruction.op === 'jnz'
+                ? 'cpy'
+                : 'jnz';
         }
     }
 
@@ -92,21 +120,25 @@ const optimise = (instructions: Instruction[]): Instruction[] => {
   for (let i = 5; i < instructions.length; ++i) {
     const { op, args } = instructions[i];
 
-    if ('jnz' !== op || -5 !== +args[1]) {
+    if ("jnz" !== op || -5 !== +args[1]) {
       continue;
     }
 
     const cpy = instructions[i - 5];
 
-    if ('cpy' !== cpy.op) {
+    if ("cpy" !== cpy.op) {
       continue;
     }
 
-    optimised[i - 4] = { op: 'mul', args: [cpy.args[1], args[0]] };
-    optimised[i - 3] = { op: 'add', args: [instructions[i - 4].args[0], cpy.args[1]] };
+    optimised[i - 4] = { op: "mul", args: [cpy.args[1], args[0]] };
+
+    optimised[i - 3] = {
+      op: "add",
+      args: [instructions[i - 4].args[0], cpy.args[1]],
+    };
 
     // Keep the original length of the instructions so as to not change any other behaviour.
-    optimised[i] = optimised[i - 1] = optimised[i - 2] = { op: 'nop' };
+    optimised[i] = optimised[i - 1] = optimised[i - 2] = { op: "nop" };
   }
 
   return optimised;

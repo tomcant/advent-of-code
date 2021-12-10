@@ -1,15 +1,18 @@
 type Disk = {
-  posCount: number,
-  startPos: number
+  posCount: number;
+  startPos: number;
 };
 
 export const parseInput = (input: string): Disk[] =>
-  input.split('\n').map(line => {
-    const [, posCount, startPos] = line.match(/has (\d+) positions; .+ is at position (\d+)/);
+  input.split("\n").map((line) => {
+    const [, posCount, startPos] = line.match(
+      /has (\d+) positions; .+ is at position (\d+)/
+    );
     return { posCount: +posCount, startPos: +startPos };
   });
 
-export const part1 = (disks: Disk[]): number => findTimeForSlotAlignmentAtPosZero(disks);
+export const part1 = (disks: Disk[]): number =>
+  findTimeForSlotAlignmentAtPosZero(disks);
 
 export const part2 = (disks: Disk[]): number => {
   disks.push({ posCount: 11, startPos: 0 });

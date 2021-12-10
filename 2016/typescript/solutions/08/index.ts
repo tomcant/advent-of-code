@@ -1,16 +1,19 @@
-export const part1 = (instructions: Instruction[]): number => applyInstructions(instructions).countOnPixels();
-export const part2 = (instructions: Instruction[]): string => '\n' + applyInstructions(instructions).toString();
+export const part1 = (instructions: Instruction[]): number =>
+  applyInstructions(instructions).countOnPixels();
+
+export const part2 = (instructions: Instruction[]): string =>
+  "\n" + applyInstructions(instructions).toString();
 
 export const parseInput = (input: string): Instruction[] =>
-  input.split('\n').map(instruction => {
-    return instruction.startsWith('rect')
+  input.split("\n").map((instruction) => {
+    return instruction.startsWith("rect")
       ? DrawRectangle.fromString(instruction)
       : RotateAxis.fromString(instruction);
   });
 
 enum PixelState {
-  On = '#',
-  Off = '.'
+  On = "#",
+  Off = ".",
 }
 
 class Screen {
@@ -31,7 +34,7 @@ class Screen {
   }
 
   public clone(): Screen {
-    return Screen.fromPixels(this.pixels.map(line => [...line]));
+    return Screen.fromPixels(this.pixels.map((line) => [...line]));
   }
 
   public setPixel(x: number, y: number, state: PixelState): void {
@@ -43,7 +46,7 @@ class Screen {
   }
 
   public getCol(idx: number): PixelState[] {
-    return this.pixels.map(line => line[idx]);
+    return this.pixels.map((line) => line[idx]);
   }
 
   get width(): number {
@@ -55,14 +58,13 @@ class Screen {
   }
 
   public countOnPixels(): number {
-    return this.pixels.flat().reduce(
-      (count, pixel) => count + +(PixelState.On === pixel),
-      0
-    );
+    return this.pixels
+      .flat()
+      .reduce((count, pixel) => count + +(PixelState.On === pixel), 0);
   }
 
   public toString(): string {
-    return this.pixels.map(line => line.join('')).join('\n');
+    return this.pixels.map((line) => line.join("")).join("\n");
   }
 }
 
@@ -93,18 +95,18 @@ class DrawRectangle implements Instruction {
 
 class RotateAxis implements Instruction {
   constructor(
-    readonly axis: 'x' | 'y',
+    readonly axis: "x" | "y",
     readonly xyVal: number,
     readonly times: number
   ) {}
 
   public static fromString(str: string): RotateAxis {
     const [, axis, xyVal, times] = str.match(/([xy])=(\d+)\sby\s(\d+)/);
-    return new this(axis as 'x' | 'y', +xyVal, +times);
+    return new this(axis as "x" | "y", +xyVal, +times);
   }
 
   public apply(screen: Screen): Screen {
-    return this['x' === this.axis ? 'rotateX' : 'rotateY'](screen.clone());
+    return this["x" === this.axis ? "rotateX" : "rotateY"](screen.clone());
   }
 
   private rotateX(screen: Screen): Screen {

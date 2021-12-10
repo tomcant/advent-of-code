@@ -1,9 +1,9 @@
-import { createHash } from 'crypto';
+import { createHash } from "crypto";
 
 type Key = {
-  idx: number,
-  hash: string,
-  char: string
+  idx: number;
+  hash: string;
+  char: string;
 };
 
 export const parseInput = (input: string): string => input;
@@ -17,12 +17,14 @@ const findKey = (salt: string, keyNum: number, stretch: number = 0): Key => {
 
   for (let idx = 0; keys.length < keyNum; ++idx) {
     const hash = genHash(salt + idx, stretch);
-    const [chars, char] = /(.)\1{2}(\1{2})?/.exec(hash) ?? [''];
+    const [chars, char] = /(.)\1{2}(\1{2})?/.exec(hash) ?? [""];
 
     if (chars.length >= 5) {
-      keys.push(...candidates.filter(
-        candidate => char === candidate.char && idx - candidate.idx <= 1000
-      ));
+      keys.push(
+        ...candidates.filter(
+          (candidate) => char === candidate.char && idx - candidate.idx <= 1000
+        )
+      );
     }
 
     if (chars.length >= 3) {
@@ -38,7 +40,7 @@ const genHash = (input: string, stretch: number): string => {
   let hash = input;
 
   while (hashCount--) {
-    hash = createHash('md5').update(hash).digest('hex');
+    hash = createHash("md5").update(hash).digest("hex");
   }
 
   return hash;

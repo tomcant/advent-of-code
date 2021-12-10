@@ -1,4 +1,4 @@
-import Queue from '../../utils/queue';
+import Queue from "../../utils/queue";
 
 type BotRef = number;
 type Bot = [number?, number?];
@@ -6,11 +6,13 @@ type Output = number;
 type Factory = [Bot[], Output[]];
 
 export const parseInput = (input: string): Instruction[] =>
-  input.split('\n').map(line =>
-    line.startsWith('bot')
-      ? ResolveBot.fromString(line)
-      : InitialiseBot.fromString(line)
-  );
+  input
+    .split("\n")
+    .map((line) =>
+      line.startsWith("bot")
+        ? ResolveBot.fromString(line)
+        : InitialiseBot.fromString(line)
+    );
 
 export const part1 = (instructions: Instruction[]): number => {
   for (const [bots] of resolve(instructions)) {
@@ -64,8 +66,9 @@ class ResolveBot implements Instruction {
   ) {}
 
   public static fromString(str: string): ResolveBot {
-    const [, botRef, lowType, lowDest, highType, highDest] =
-      str.match(/(\d+) gives low to (bot|output) (\d+) and high to (bot|output) (\d+)/);
+    const [, botRef, lowType, lowDest, highType, highDest] = str.match(
+      /(\d+) gives low to (bot|output) (\d+) and high to (bot|output) (\d+)/
+    );
 
     return new this(+botRef, lowType, highType, +lowDest, +highDest);
   }
@@ -85,13 +88,18 @@ class ResolveBot implements Instruction {
     return true;
   }
 
-  private resolve([bots, outputs]: Factory, type: string, dest: number, value: number): void {
+  private resolve(
+    [bots, outputs]: Factory,
+    type: string,
+    dest: number,
+    value: number
+  ): void {
     switch (type) {
-      case 'bot':
+      case "bot":
         bots[dest] = bots[dest] || [];
         bots[dest].push(value);
         break;
-      case 'output':
+      case "output":
         outputs[dest] = value;
         break;
     }

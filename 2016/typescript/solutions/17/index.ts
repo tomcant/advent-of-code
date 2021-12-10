@@ -1,10 +1,10 @@
-import { createHash } from 'crypto';
-import Queue from '../../utils/queue';
-import Vec2d from '../../utils/vec2d';
+import { createHash } from "crypto";
+import Queue from "../../utils/queue";
+import Vec2d from "../../utils/vec2d";
 
 type Node = {
-  pos: Vec2d,
-  path: string
+  pos: Vec2d;
+  path: string;
 };
 
 const WIDTH = 4;
@@ -19,7 +19,8 @@ const DIRS = {
 
 export const parseInput = (input: string): string => input;
 
-export const part1 = (passcode: string): string => findPathsToVault(passcode).next().value;
+export const part1 = (passcode: string): string =>
+  findPathsToVault(passcode).next().value;
 
 export const part2 = (passcode: string): number => {
   let longest = 0;
@@ -34,7 +35,7 @@ export const part2 = (passcode: string): number => {
 };
 
 const findPathsToVault = function* (passcode: string): Generator<string> {
-  const queue = new Queue<Node>([{ pos: new Vec2d(0, 0), path: '' }]);
+  const queue = new Queue<Node>([{ pos: new Vec2d(0, 0), path: "" }]);
 
   while (!queue.isEmpty()) {
     const node = queue.dequeue();
@@ -49,7 +50,10 @@ const findPathsToVault = function* (passcode: string): Generator<string> {
 };
 
 const getPathOptions = ({ pos, path }: Node, passcode: string): Node[] => {
-  const doors = createHash('md5').update(passcode + path).digest('hex');
+  const doors = createHash("md5")
+    .update(passcode + path)
+    .digest("hex");
+
   const nodes = [];
   let idx = 0;
 
@@ -66,6 +70,11 @@ const getPathOptions = ({ pos, path }: Node, passcode: string): Node[] => {
   return nodes;
 };
 
-const isDoorOpen = (door: string): boolean => door.charCodeAt(0) > 'a'.charCodeAt(0);
-const isVaultPos = ({ x, y }: Vec2d): boolean => WIDTH - 1 === x && HEIGHT - 1 === y;
-const isWithinBounds = ({ x, y }: Vec2d): boolean => x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT;
+const isDoorOpen = (door: string): boolean =>
+  door.charCodeAt(0) > "a".charCodeAt(0);
+
+const isVaultPos = ({ x, y }: Vec2d): boolean =>
+  WIDTH - 1 === x && HEIGHT - 1 === y;
+
+const isWithinBounds = ({ x, y }: Vec2d): boolean =>
+  x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT;

@@ -4,8 +4,8 @@ export const part1 = (input: Node): number => countDecompressedChars(input, 1);
 export const part2 = (input: Node): number => countDecompressedChars(input);
 
 enum Marker {
-  Open = '(',
-  Close = ')'
+  Open = "(",
+  Close = ")",
 }
 
 class Node {
@@ -24,7 +24,10 @@ class Node {
   }
 }
 
-const countDecompressedChars = (node: Node, maxDepth: number = Infinity): number => {
+const countDecompressedChars = (
+  node: Node,
+  maxDepth: number = Infinity
+): number => {
   return (function count(node, depth = 0) {
     if (node.isLeaf() || depth === maxDepth) {
       return node.length;
@@ -39,7 +42,7 @@ const countDecompressedChars = (node: Node, maxDepth: number = Infinity): number
 
 const findChildNodes = (node: Node): Node[] => {
   const nodes: Node[] = [];
-  let stringNode: string = '';
+  let stringNode: string = "";
 
   for (let i = 0; i < node.length; ) {
     if (Marker.Open !== node.charAt(i)) {
@@ -49,13 +52,18 @@ const findChildNodes = (node: Node): Node[] => {
 
     if (stringNode.length > 0) {
       nodes.push(new Node(stringNode));
-      stringNode = '';
+      stringNode = "";
     }
 
-    const bracket = node.value.substr(i, node.value.indexOf(Marker.Close, i) - i + 1);
+    const bracket = node.value.substr(
+      i,
+      node.value.indexOf(Marker.Close, i) - i + 1
+    );
     const [, count, repeat] = bracket.match(/(\d+)x(\d+)/);
 
-    nodes.push(new Node(node.value.substr(i + bracket.length, +count), +repeat));
+    nodes.push(
+      new Node(node.value.substr(i + bracket.length, +count), +repeat)
+    );
 
     i += bracket.length + +count;
   }

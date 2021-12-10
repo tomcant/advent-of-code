@@ -1,20 +1,22 @@
-import Queue from '../../utils/queue';
-import Vec2d from '../../utils/vec2d';
+import Queue from "../../utils/queue";
+import Vec2d from "../../utils/vec2d";
 
 type Node = {
-  pos: Vec2d,
-  steps: number
+  pos: Vec2d;
+  steps: number;
 };
 
 type State = {
-  node: Node,
-  history: Set<string>
+  node: Node;
+  history: Set<string>;
 };
 
 export const parseInput = (input: string): number => Number(input);
 
 export const part1 = (favNum: number): number => {
-  for (const { node: { pos, steps } } of exploreMap(favNum)) {
+  for (const {
+    node: { pos, steps },
+  } of exploreMap(favNum)) {
     if (pos.x === 31 && pos.y === 39) {
       return steps;
     }
@@ -22,7 +24,10 @@ export const part1 = (favNum: number): number => {
 };
 
 export const part2 = (favNum: number): number => {
-  for (const { node: { steps }, history } of exploreMap(favNum)) {
+  for (const {
+    node: { steps },
+    history,
+  } of exploreMap(favNum)) {
     if (steps === 50) {
       return history.size;
     }
@@ -47,7 +52,7 @@ const exploreMap = function* (favNum: number): Generator<State> {
 
         queue.enqueue({
           pos: neighbour,
-          steps: node.steps + 1
+          steps: node.steps + 1,
         });
       }
     }
@@ -61,7 +66,7 @@ const getNeighbouringPositions = (pos: Vec2d, favNum: number): Vec2d[] => {
     { dx: 1, dy: 0 },
     { dx: 0, dy: 1 },
     { dx: -1, dy: 0 },
-    { dx: 0, dy: -1 }
+    { dx: 0, dy: -1 },
   ];
 
   for (const { dx, dy } of dirs) {
@@ -76,7 +81,7 @@ const getNeighbouringPositions = (pos: Vec2d, favNum: number): Vec2d[] => {
 };
 
 const isWall = ({ x, y }: Vec2d, favNum: number): boolean =>
-  (countSetBits(x*x + 3*x + 2*x*y + y + y*y + favNum) & 1) === 1;
+  (countSetBits(x * x + 3 * x + 2 * x * y + y + y * y + favNum) & 1) === 1;
 
 const countSetBits = (n: number): number => {
   let count = 0;

@@ -4,7 +4,7 @@ export const part1 = (numElfs: number): number => {
   // See https://en.wikipedia.org/wiki/Josephus_problem
   let msb = 1;
   while (numElfs > msb) msb *= 2;
-  return ~msb & numElfs * 2 + 1;
+  return ~msb & (numElfs * 2 + 1);
 };
 
 export const part2 = (numElfs: number): number => {

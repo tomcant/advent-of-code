@@ -1,26 +1,40 @@
-import Queue from '../../utils/queue';
-import Vec2d from '../../utils/vec2d';
+import Queue from "../../utils/queue";
+import Vec2d from "../../utils/vec2d";
 
 type StorageNode = {
-  pos: Vec2d,
-  size: number,
-  used: number
+  pos: Vec2d;
+  size: number;
+  used: number;
 };
 
 type StorageCluster = StorageNode[];
 
 export const parseInput = (input: string): StorageCluster =>
-  input.split('\n').slice(2).map(line => {
-    const [, x, y, size, used] = line.match(/x(\d+)-y(\d+)\s+(\d+)T\s+(\d+)T/);
-    return { pos: new Vec2d(+x, +y), size: +size, used: +used };
-  });
+  input
+    .split("\n")
+    .slice(2)
+    .map((line) => {
+      const [, x, y, size, used] = line.match(
+        /x(\d+)-y(\d+)\s+(\d+)T\s+(\d+)T/
+      );
+      return { pos: new Vec2d(+x, +y), size: +size, used: +used };
+    });
 
 export const part1 = (cluster: StorageCluster): number => {
   let count = 0;
 
-  for (const { pos: { x: xA, y: yA }, used: usedA } of cluster) {
-    for (const { pos: { x: xB, y: yB }, size: sizeB, used: usedB } of cluster) {
-      count += Number((xA !== xB || yA !== yB) && usedA > 0 && usedA <= sizeB - usedB);
+  for (const {
+    pos: { x: xA, y: yA },
+    used: usedA,
+  } of cluster) {
+    for (const {
+      pos: { x: xB, y: yB },
+      size: sizeB,
+      used: usedB,
+    } of cluster) {
+      count += Number(
+        (xA !== xB || yA !== yB) && usedA > 0 && usedA <= sizeB - usedB
+      );
     }
   }
 
@@ -77,11 +91,20 @@ export const part2 = (cluster: StorageCluster): number => {
   while (!queue.isEmpty()) {
     const searchNode = queue.dequeue();
 
-    if (searchNode.emptyPos.x === adjDataNodePos.x && searchNode.emptyPos.y === adjDataNodePos.y) {
-      return searchNode.steps + calcStepsFromDataNodeToAccessibleNode(adjDataNodePos);
+    if (
+      searchNode.emptyPos.x === adjDataNodePos.x &&
+      searchNode.emptyPos.y === adjDataNodePos.y
+    ) {
+      return (
+        searchNode.steps + calcStepsFromDataNodeToAccessibleNode(adjDataNodePos)
+      );
     }
 
-    for (const neighbour of getNeighbourPositions(searchNode.emptyPos, gridMin, gridMax)) {
+    for (const neighbour of getNeighbourPositions(
+      searchNode.emptyPos,
+      gridMin,
+      gridMax
+    )) {
       if (emptyNode.size < getNodeAt(neighbour, cluster).used) {
         continue;
       }
@@ -93,21 +116,25 @@ export const part2 = (cluster: StorageCluster): number => {
 
         queue.enqueue({
           emptyPos: neighbour,
-          steps: searchNode.steps + 1
+          steps: searchNode.steps + 1,
         });
       }
     }
   }
 };
 
-const getNeighbourPositions = (pos: Vec2d, gridMin: Vec2d, gridMax: Vec2d): Vec2d[] => {
+const getNeighbourPositions = (
+  pos: Vec2d,
+  gridMin: Vec2d,
+  gridMax: Vec2d
+): Vec2d[] => {
   const positions = [];
 
   const dirs = [
     { dx: 1, dy: 0 },
     { dx: 0, dy: 1 },
     { dx: -1, dy: 0 },
-    { dx: 0, dy: -1 }
+    { dx: 0, dy: -1 },
   ];
 
   for (const { dx, dy } of dirs) {
@@ -127,7 +154,14 @@ const getNeighbourPositions = (pos: Vec2d, gridMin: Vec2d, gridMax: Vec2d): Vec2
   return positions;
 };
 
-const getNodeAt = ({ x, y }: Vec2d, cluster: StorageCluster): StorageNode => cluster[x * (getClusterHeight(cluster)) + y];
-const getClusterWidth = (cluster: StorageCluster): number => cluster[cluster.length - 1].pos.x + 1;
-const getClusterHeight = (cluster: StorageCluster): number => cluster[cluster.length - 1].pos.y + 1;
-const calcStepsFromDataNodeToAccessibleNode = (pos: Vec2d): number => pos.x * 5 + 1;
+const getNodeAt = ({ x, y }: Vec2d, cluster: StorageCluster): StorageNode =>
+  cluster[x * getClusterHeight(cluster) + y];
+
+const getClusterWidth = (cluster: StorageCluster): number =>
+  cluster[cluster.length - 1].pos.x + 1;
+
+const getClusterHeight = (cluster: StorageCluster): number =>
+  cluster[cluster.length - 1].pos.y + 1;
+
+const calcStepsFromDataNodeToAccessibleNode = (pos: Vec2d): number =>
+  pos.x * 5 + 1;
