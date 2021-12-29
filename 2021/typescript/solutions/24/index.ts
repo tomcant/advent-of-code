@@ -1,7 +1,7 @@
 type Operator = "inp" | "add" | "mul" | "div" | "mod" | "eql";
 type Instruction = { op: Operator; args: string[] };
 
-const Z_UPPER_CUT_OFF = 10_000_000;
+const Z_UPPER_CUT_OFF = 26 ** 5;
 
 export const parseInput = (input: string): Instruction[] =>
   input.split("\n").map((line) => {
