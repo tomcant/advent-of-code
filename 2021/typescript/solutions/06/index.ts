@@ -16,5 +16,5 @@ const simulate = (ages: number[], days: number): number => {
     fish.push(fish.shift());
   }
 
-  return fish.reduce((sum, f) => sum + f, 0);
+  return fish.reduce((sum, f) => sum + f);
 };
