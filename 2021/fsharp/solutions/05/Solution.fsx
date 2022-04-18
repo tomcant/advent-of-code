@@ -34,11 +34,10 @@ let rec line (p1, p2) =
 
 let countOverlaps points =
   (Map [], points)
-  ||> List.fold
-        (fun map point ->
-          match map.TryGetValue point with
-          | (true, count) -> map.Add(point, (count + 1))
-          | (false, _) -> map.Add(point, 1))
+  ||> List.fold (fun map point ->
+    match map.TryGetValue point with
+    | (true, count) -> map.Add(point, (count + 1))
+    | (false, _) -> map.Add(point, 1))
   |> Map.filter (fun _ count -> count > 1)
   |> Map.count
 

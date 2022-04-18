@@ -25,7 +25,7 @@ let leastCommonBit idx report =
 let calcRate bit report =
   let maxBit = msb report - 1
 
-  [ for i in 0 .. maxBit ->
+  [ for i in 0..maxBit ->
       match mostCommonBit (maxBit - i) report with
       | Some (b) when b = bit -> 1 <<< maxBit - i
       | _ -> 0 ]
@@ -39,18 +39,15 @@ let powerConsumption report =
 
 let reduceReport commonBitFn defaultBit report =
   (report, 0)
-  |> Seq.unfold
-       (fun (state, i) ->
-         let idx = msb report - 1 - i
+  |> Seq.unfold (fun (state, i) ->
+    let idx = msb report - 1 - i
+    let commonBit = defaultArg (commonBitFn idx state) defaultBit
 
-         let commonBit =
-           defaultArg (commonBitFn idx state) defaultBit
+    let next =
+      state
+      |> List.filter (fun v -> v >>> idx &&& 1 = commonBit)
 
-         let next =
-           state
-           |> List.filter (fun v -> v >>> idx &&& 1 = commonBit)
-
-         Some(next, (next, i + 1)))
+    Some(next, (next, i + 1)))
   |> Seq.find (fun l -> l.Length = 1)
   |> Seq.exactlyOne
 

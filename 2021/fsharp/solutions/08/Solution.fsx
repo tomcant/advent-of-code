@@ -38,25 +38,22 @@ let parseInput =
 
 let part1 input =
   input
-  |> List.sumBy
-       (fun (_, display) ->
-         display
-         |> List.filter (fun (o: string) -> List.contains o.Length [ 2; 3; 4; 7 ])
-         |> List.length)
+  |> List.sumBy (fun (_, display) ->
+    display
+    |> List.filter (fun (o: string) -> List.contains o.Length [ 2; 3; 4; 7 ])
+    |> List.length)
 
 let part2 input =
   input
-  |> List.map
-       (fun (signals, display) ->
-         [ 0 .. 6 ]
-         |> List.permutations
-         |> Seq.find
-              (fun perm ->
-                signals
-                |> List.forall (permuteSignal perm >> digits.ContainsKey))
-         |> (fun perm ->
-           display
-           |> List.map (permuteSignal perm)
-           |> List.map (fun signal -> digits.[signal])
-           |> (Array.ofList >> String >> int)))
+  |> List.map (fun (signals, display) ->
+    [ 0..6 ]
+    |> List.permutations
+    |> Seq.find (fun perm ->
+      signals
+      |> List.forall (permuteSignal perm >> digits.ContainsKey))
+    |> (fun perm ->
+      display
+      |> List.map (permuteSignal perm)
+      |> List.map (fun signal -> digits.[signal])
+      |> (Array.ofList >> String >> int)))
   |> List.sum
