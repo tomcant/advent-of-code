@@ -17,6 +17,8 @@ let splitLines str = splitOn "\n" str
 
 let splitGroups str = splitOn "\n\n" str
 
+let charToInt (c: char) = int c - int '0'
+
 let msb n =
   Seq.initInfinite (fun i -> i + 1)
   |> Seq.find (fun i -> 1 <<< i >= n)
