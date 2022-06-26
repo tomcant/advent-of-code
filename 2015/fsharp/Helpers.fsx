@@ -29,3 +29,7 @@ let md5 (str: string) =
   |> hasher.ComputeHash
   |> Seq.map (sprintf "%02x")
   |> Seq.reduce (+)
+
+let debug obj =
+  printfn "%A" obj
+  obj
