@@ -5,7 +5,10 @@ solve/%:
 
 .PHONY: format
 format:
-	@$(DOCKER) bash -c "dotnet tool install -g fantomas-tool >/dev/null && /root/.dotnet/tools/fantomas -r ."
+	@$(DOCKER) bash -c " \
+	  dotnet tool install -g fantomas-tool >/dev/null && \
+	  /root/.dotnet/tools/fantomas -r . | grep written || true \
+	"
 
 .PHONY: shell
 shell:
