@@ -1,8 +1,11 @@
 IMAGE = python:3.11.0-alpine
 DOCKER = docker run --rm -v $(PWD):/app:rw,delegated -w /app
 
+solve/%/test:
+	@$(DOCKER) -it $(IMAGE) python solve.py $* test.txt
+
 solve/%:
-	@$(DOCKER) -it $(IMAGE) python solve.py $*
+	@$(DOCKER) -it $(IMAGE) python solve.py $* input.txt
 
 .PHONY: format
 format:
