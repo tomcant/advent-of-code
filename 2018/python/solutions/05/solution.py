@@ -9,7 +9,7 @@ def part2(polymer):
     replacements = [{ord(char): '', ord(char.upper()): ''}
                     for char in string.ascii_lowercase]
 
-    return min([len(reduce(polymer.translate(reps))) for reps in replacements])
+    return min(len(reduce(polymer.translate(reps))) for reps in replacements)
 
 
 def reduce(polymer):
