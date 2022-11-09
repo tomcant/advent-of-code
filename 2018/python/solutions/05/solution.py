@@ -6,9 +6,7 @@ def part1(polymer):
 
 
 def part2(polymer):
-    replacements = [{ord(char): '', ord(char.upper()): ''}
-                    for char in string.ascii_lowercase]
-
+    replacements = [{ord(char): '', ord(char.upper()): ''} for char in string.ascii_lowercase]
     return min(len(reduce(polymer.translate(reps))) for reps in replacements)
 
 
