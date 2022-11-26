@@ -17,10 +17,10 @@ def part1(grid):
 
     for y in range(1, len(grid) - 2):
         for x in range(1, len(grid[y]) - 2):
-            power =   sum_table[y+2][x+2] \
-                    - sum_table[y+2][x-1] \
-                    - sum_table[y-1][x+2] \
-                    + sum_table[y-1][x-1]
+            power = sum_table[y+2][x+2] \
+                - sum_table[y+2][x-1] \
+                - sum_table[y-1][x+2] \
+                + sum_table[y-1][x-1]
 
             if power > max_power:
                 max_power = power
@@ -38,10 +38,10 @@ def part2(grid):
     for y in range(1, len(grid)):
         for x in range(1, len(grid[y])):
             for size in range(1, min(len(grid[y]) - x, len(grid) - y) + 1):
-                power =   sum_table[y+size-1][x+size-1] \
-                        - sum_table[y+size-1][x-1] \
-                        - sum_table[y-1][x+size-1] \
-                        + sum_table[y-1][x-1]
+                power = sum_table[y+size-1][x+size-1] \
+                    - sum_table[y+size-1][x-1] \
+                    - sum_table[y-1][x+size-1] \
+                    + sum_table[y-1][x-1]
 
                 if power > max_power:
                     max_power = power
