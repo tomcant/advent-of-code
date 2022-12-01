@@ -9,4 +9,4 @@ My solutions to the [Advent of Code](https://adventofcode.com) programming puzzl
 - 2019, TBD
 - 2020, [JavaScript](./2020/javascript)
 - 2021, [F#](./2021/fsharp/solutions) (WIP), [TypeScript](./2021/typescript/solutions)
-- 2022, TBD
+- 2022, [Python](./2022/python/solutions) (WIP)
