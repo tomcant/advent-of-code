@@ -14,7 +14,7 @@ def parse_input(input):
                 if match('\w', line[i]):
                     stacks[i].insert(0, line[i])
 
-    stacks = list(crates for _, crates in sorted(stacks.items()))
+    stacks = [crates for _, crates in sorted(stacks.items())]
     return stacks, moves
 
 
