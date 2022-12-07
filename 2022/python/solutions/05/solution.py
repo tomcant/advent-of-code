@@ -25,7 +25,7 @@ def part1(input):
         for _ in range(num_crates):
             stacks[to_idx - 1].append(stacks[from_idx - 1].pop())
 
-    return ''.join([top_crate for *_, top_crate in stacks])
+    return ''.join(top_crate for *_, top_crate in stacks)
 
 
 def part2(input):
@@ -35,4 +35,4 @@ def part2(input):
         stacks[to_idx - 1] += stacks[from_idx - 1][-num_crates:]
         stacks[from_idx - 1] = stacks[from_idx - 1][:-num_crates]
 
-    return ''.join([top_crate for *_, top_crate in stacks])
+    return ''.join(top_crate for *_, top_crate in stacks)
