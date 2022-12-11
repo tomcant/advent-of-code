@@ -3,15 +3,15 @@ def parse_input(input):
 
 
 def part1(cmds):
-    return sum(cycle * register for cycle, register in execute(cmds) if (cycle-20)%40 == 0)
+    return sum(cycle * register for cycle, register in execute(cmds) if (cycle-20) % 40 == 0)
 
 
 def part2(cmds):
     display = [['.'] * 40 for _ in range(6)]
 
     for cycle, register in execute(cmds):
-        if register-1 <= (cycle-1)%40 <= register+1:
-            display[(cycle-1)//40][(cycle-1)%40] = '#'
+        if register-1 <= (cycle-1) % 40 <= register+1:
+            display[(cycle-1) // 40][(cycle-1) % 40] = '#'
 
     return '\n' + '\n'.join(map(''.join, display))
 

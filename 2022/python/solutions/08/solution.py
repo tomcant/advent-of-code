@@ -17,7 +17,7 @@ def find_visible_trees(trees):
     size = len(trees)
 
     for y in range(size):
-        for xs in [range(size), range(size-1, -1, -1)]:
+        for xs in [range(size), reversed(range(size))]:
             tallest_x, tallest_y = 0, 0
             for x in xs:
                 if x in [0, size-1] or trees[y][x] > tallest_x:
