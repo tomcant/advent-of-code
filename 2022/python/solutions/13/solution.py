@@ -6,7 +6,7 @@ def parse_input(input):
 
 
 def part1(pairs):
-    return sum(idx + 1 for idx, (left, right) in enumerate(pairs) if compare(left, right) < 0)
+    return sum(idx for idx, (left, right) in enumerate(pairs, 1) if compare(left, right) < 0)
 
 
 def part2(pairs):
