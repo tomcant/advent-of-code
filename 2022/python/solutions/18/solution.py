@@ -18,8 +18,14 @@ def part2(cubes):
         (max[0] + 1, max[1] + 1, max[2] + 1),
     ]
 
+    in_cache = set()
+    out_cache = set()
+
     @cache
     def is_outside(pos):
+        if pos in out_cache: return True
+        if pos in in_cache: return False
+
         queue = deque([pos])
         seen = set()
 
@@ -29,9 +35,11 @@ def part2(cubes):
                 continue
             seen.add(pos)
             if pos in outside:
+                out_cache.update(seen)
                 return True
             queue += get_neighbours(pos)
 
+        in_cache.update(seen)
         return False
 
     return sum(is_outside(pos) for cube in cubes for pos in get_neighbours(cube))
