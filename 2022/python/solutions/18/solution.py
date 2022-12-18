@@ -1,5 +1,4 @@
 from collections import deque
-from functools import cache
 
 
 def parse_input(input):
@@ -21,7 +20,6 @@ def part2(cubes):
     in_cache = set()
     out_cache = set()
 
-    @cache
     def is_outside(pos):
         if pos in out_cache: return True
         if pos in in_cache: return False
