@@ -10,19 +10,13 @@ def part1(cubes):
 
 
 def part2(cubes):
-    min, *_, max = sorted(cubes)
-
-    outside = [
-        (min[0] - 1, min[1] - 1, min[2] - 1),
-        (max[0] + 1, max[1] + 1, max[2] + 1),
-    ]
-
-    in_cache = set()
-    out_cache = set()
+    cache = {}
+    min, *_ = sorted(cubes)
+    outside = min[0] - 1, min[1] - 1, min[2] - 1
 
     def is_outside(pos):
-        if pos in out_cache: return True
-        if pos in in_cache: return False
+        if pos in cache:
+            return cache[pos]
 
         queue = deque([pos])
         seen = set()
@@ -32,12 +26,12 @@ def part2(cubes):
             if pos in seen or pos in cubes:
                 continue
             seen.add(pos)
-            if pos in outside:
-                out_cache.update(seen)
+            if pos == outside:
+                cache.update((pos, True) for pos in seen)
                 return True
             queue += get_neighbours(pos)
 
-        in_cache.update(seen)
+        cache.update((pos, False) for pos in seen)
         return False
 
     return sum(is_outside(pos) for cube in cubes for pos in get_neighbours(cube))

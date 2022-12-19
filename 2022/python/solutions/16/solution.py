@@ -22,8 +22,12 @@ def part2(graph):
 
 def find_max_pressure(graph, start, total_time, total_turns):
     valve_idxs = dict(map(reversed, enumerate(graph)))
-    is_valve_closed = lambda state, valve: state & 1 << valve_idxs[valve] == 0
-    open_valve = lambda state, valve: state | 1 << valve_idxs[valve]
+
+    def is_valve_closed(state, valve):
+        return state & 1 << valve_idxs[valve] == 0
+
+    def open_valve(state, valve):
+        return state | 1 << valve_idxs[valve]
 
     @cache
     def search(state, valve, time_left, turns_left):
