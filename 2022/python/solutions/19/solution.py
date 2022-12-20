@@ -67,7 +67,8 @@ def find_max_opened_geodes(blueprint, total_time):
                 new_ore - ore_cost, new_clay, new_obs,
                 ore_rbts + 1, clay_rbts, obs_rbts
             )
-            if geodes > max_geodes: max_geodes = geodes
+            if geodes > max_geodes:
+                max_geodes = geodes
 
         if ore >= clay_cost and clay_rbts < obs_cost_clay:
             geodes = search(
@@ -75,7 +76,8 @@ def find_max_opened_geodes(blueprint, total_time):
                 new_ore - clay_cost, new_clay, new_obs,
                 ore_rbts, clay_rbts + 1, obs_rbts
             )
-            if geodes > max_geodes: max_geodes = geodes
+            if geodes > max_geodes:
+                max_geodes = geodes
 
         if ore >= obs_cost_ore and clay >= obs_cost_clay and obs_rbts < geode_cost_obs:
             geodes = search(
@@ -83,7 +85,8 @@ def find_max_opened_geodes(blueprint, total_time):
                 new_ore - obs_cost_ore, new_clay - obs_cost_clay, new_obs,
                 ore_rbts, clay_rbts, obs_rbts + 1
             )
-            if geodes > max_geodes: max_geodes = geodes
+            if geodes > max_geodes:
+                max_geodes = geodes
 
         if ore >= geode_cost_ore and obs >= geode_cost_obs:
             return time_left + \
