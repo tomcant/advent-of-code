@@ -1,5 +1,5 @@
 def parse_input(input):
-    return list(map(lambda line: list(map(int, line)), input.splitlines()))
+    return [[int(char) for char in line] for line in input.splitlines()]
 
 
 def part1(trees):
