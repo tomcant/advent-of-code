@@ -9,7 +9,7 @@ solve/%:
 
 .PHONY: format
 format:
-	@$(DOCKER) $(IMAGE) sh -c "pip install --upgrade autopep8 && autopep8 --max-line-length 120 --recursive --in-place /app"
+	@$(DOCKER) $(IMAGE) sh -c "pip install black && black ."
 
 .PHONY: shell
 shell:
