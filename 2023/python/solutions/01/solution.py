@@ -14,7 +14,7 @@ def part1(lines):
 
 def part2(lines):
     lines = [
-        tuple(findall(r"(?=(\d|one|two|three|four|five|six|seven|eight|nine))", line))
+        findall(r"(?=(\d|one|two|three|four|five|six|seven|eight|nine))", line)
         for line in lines
     ]
     return sum(int(to_digit(digits[0]) + to_digit(digits[-1])) for digits in lines)
