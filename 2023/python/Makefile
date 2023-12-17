@@ -1,4 +1,4 @@
-IMAGE = python:3.12.0-alpine
+IMAGE = python:3.12.1-alpine
 DOCKER = docker run --rm -v $(PWD):/app:rw,delegated -w /app
 
 solve/%/test:
