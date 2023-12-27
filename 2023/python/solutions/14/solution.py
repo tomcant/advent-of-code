@@ -28,7 +28,9 @@ def part2(platform):
     loop_start_idx = seen.index(platform)
     loop = seen[loop_start_idx:]
 
-    platform_after_billionth_cycle = loop[4_000_000_000 % len(loop) - loop_start_idx - 1]
+    platform_after_billionth_cycle = loop[
+        4_000_000_000 % len(loop) - loop_start_idx - 1
+    ]
 
     return calculate_load(platform_after_billionth_cycle)
 

@@ -27,7 +27,7 @@ def part2(patterns):
             for x in range(len(pattern[y])):
                 reflection = find_reflection(
                     [
-                        (row[:x] + flip[row[x]] + row[x + 1:]) if Y == y else row
+                        (row[:x] + flip[row[x]] + row[x + 1 :]) if Y == y else row
                         for Y, row in enumerate(pattern)
                     ],
                     ignore=smudged_reflection,
@@ -45,7 +45,7 @@ def part2(patterns):
     return summary
 
 
-def find_reflection(pattern, ignore = None):
+def find_reflection(pattern, ignore=None):
     for vertical in [False, True]:
         if vertical:
             pattern = transpose(pattern)
@@ -55,7 +55,7 @@ def find_reflection(pattern, ignore = None):
                 continue
 
             match = True
-            i, j = idx, idx+1
+            i, j = idx, idx + 1
 
             while match and i >= 0 and j < len(pattern):
                 match = pattern[i] == pattern[j]

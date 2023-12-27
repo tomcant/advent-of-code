@@ -17,15 +17,14 @@ def part1(records):
 
 def part2(records):
     unfolded_records = [
-        ("?".join([springs] * 5), groups * 5)
-        for springs, groups in records
+        ("?".join([springs] * 5), groups * 5) for springs, groups in records
     ]
     return sum(count_arrangements(*record) for record in unfolded_records)
 
 
 def count_arrangements(springs, groups):
     @cache
-    def count(spring, group, size = 0):
+    def count(spring, group, size=0):
         if spring == len(springs):
             if group == len(groups) and size == 0:
                 return 1
