@@ -33,9 +33,11 @@ def part2(input):
     assert all("." == grid[(x, height // 2)] for x in range(width))
     assert all("." == grid[(width // 2, y)] for y in range(height))
 
+    # fmt: off
     plots_1 = count_reachable_plots(grid, start_pos, step_target=initial_steps)
     plots_2 = count_reachable_plots(grid, start_pos, step_target=initial_steps + width + height)
     plots_3 = count_reachable_plots(grid, start_pos, step_target=initial_steps + (width + height) * 2)
+    # fmt: on
 
     plots_diff_1 = plots_2 - plots_1
     plots_diff_2 = plots_3 - plots_2
