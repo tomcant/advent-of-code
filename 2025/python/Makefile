@@ -1,15 +1,16 @@
-IMAGE = python:3.14-alpine
-DOCKER = docker run --rm -v $(PWD):/app:rw,delegated -w /app
+IMAGE = ghcr.io/astral-sh/uv:debian-slim
+DOCKER = docker run --rm -w /app -v $(PWD):/app:rw,delegated -v $(PWD)/.uv/root-cache:/root/.cache -v $(PWD)/.uv/root-local:/root/.local
+PYTHON = $(DOCKER) -it $(IMAGE) uv run --python 3.14 --with z3-solver
 
 solve/%/test:
-	@$(DOCKER) -it $(IMAGE) python solve.py $* test.txt
+	@$(PYTHON) solve.py $* test.txt
 
 solve/%:
-	@$(DOCKER) -it $(IMAGE) python solve.py $* input.txt
+	@$(PYTHON) solve.py $* input.txt
 
 .PHONY: format
 format:
-	@$(DOCKER) $(IMAGE) sh -c "pip install black && black ."
+	@$(DOCKER) $(IMAGE) uv format --preview-features format -- ./solutions
 
 .PHONY: shell
 shell:
