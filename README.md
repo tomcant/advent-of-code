@@ -5,7 +5,7 @@ My solutions to the [Advent of Code](https://adventofcode.com) programming puzzl
 ## Progress by Year
 
 ### 2025
-- [Python](./2025/python/solutions) (11/12) ▓▓▓▓▓▓▓▓▓░ 92%
+- [Python](./2025/python/solutions) (12/12) ▓▓▓▓▓▓▓▓▓▓ 100%
 
 ### 2024
 - [Python](./2024/python/solutions) (13/25) ▓▓▓▓▓░░░░░ 52%
