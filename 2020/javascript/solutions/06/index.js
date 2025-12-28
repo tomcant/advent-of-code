@@ -26,4 +26,5 @@ const part2 = groups => groups.reduce(
   0
 );
 
-console.log(part1(groups), part2(groups));
+console.log('Part 1:', part1(groups));
+console.log('Part 2:', part2(groups));

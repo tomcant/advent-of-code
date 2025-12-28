@@ -18,4 +18,5 @@ const part2 = numbers => findNthTerm(numbers, 30000000);
 
 const numbers = readRaw('input.txt').split(',').map(Number);
 
-console.log(part1([...numbers]), part2([...numbers]));
+console.log('Part 1:', part1([...numbers]));
+console.log('Part 2:', part2([...numbers]));

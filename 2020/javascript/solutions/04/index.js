@@ -47,4 +47,5 @@ const passports = readGroupsRaw('input.txt').map(
     .reduce((passport, [key, value]) => Object.assign(passport, { [key]: value }), {})
 );
 
-console.log(part1(passports), part2(passports));
+console.log('Part 1:', part1(passports));
+console.log('Part 2:', part2(passports));

@@ -18,4 +18,5 @@ const part2 = passwords => passwords.reduce(
 
 const passwords = readLines('input.txt').map(line => line.match(/(\d+)-(\d+) (.): (.+)/).slice(1));
 
-console.log(part1(passwords), part2(passwords));
+console.log('Part 1:', part1(passwords));
+console.log('Part 2:', part2(passwords));

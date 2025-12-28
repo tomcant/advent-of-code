@@ -62,4 +62,5 @@ const part2 = (rules, nearbyTickets, myTicket) => {
   return product;
 };
 
-console.log(part1(rules, nearbyTickets), part2(rules, nearbyTickets, myTicket));
+console.log('Part 1:', part1(rules, nearbyTickets));
+console.log('Part 2:', part2(rules, nearbyTickets, myTicket));

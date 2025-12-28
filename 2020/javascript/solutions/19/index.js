@@ -27,4 +27,5 @@ const part2 = (rules, messages) => {
   return countMatches(rules, messages);
 };
 
-console.log(part1(rules, messages), part2(rules, messages));
+console.log('Part 1:', part1(rules, messages));
+console.log('Part 2:', part2(rules, messages));

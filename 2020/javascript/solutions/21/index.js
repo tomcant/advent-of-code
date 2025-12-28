@@ -60,4 +60,5 @@ const food = readLines('input.txt').map(line => {
   return [new Set(ingredients.split(' ')), new Set(allergens.split(', '))];
 });
 
-console.log(part1(food), part2(food));
+console.log('Part 1:', part1(food));
+console.log('Part 2:', part2(food));

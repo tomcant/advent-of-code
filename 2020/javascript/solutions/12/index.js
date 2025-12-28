@@ -52,4 +52,5 @@ const instructions = readLines('input.txt')
   .map(line => line.match(/(\w)(\d+)/).slice(1))
   .map(([op, arg]) => [op, +arg]);
 
-console.log(part1(instructions), part2(instructions));
+console.log('Part 1:', part1(instructions));
+console.log('Part 2:', part2(instructions));

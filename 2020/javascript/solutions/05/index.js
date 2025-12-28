@@ -21,4 +21,5 @@ const part2 = seatIds => {
   return sum1toN(Math.max(...seatIds)) - sum1toN(Math.min(...seatIds) - 1) - sum;
 };
 
-console.log(part1(seatIds), part2(seatIds));
+console.log('Part 1:', part1(seatIds));
+console.log('Part 2:', part2(seatIds));

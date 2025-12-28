@@ -112,4 +112,5 @@ const part2 = expressions => {
 
 const expressions = readLines('input.txt');
 
-console.log(part1(expressions), part2(expressions));
+console.log('Part 1:', part1(expressions));
+console.log('Part 2:', part2(expressions));

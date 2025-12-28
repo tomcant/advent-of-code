@@ -27,4 +27,5 @@ const part2 = numbers => {
 let numbers = readLines('input.txt').sort((a ,b) => a - b);
 numbers = [0, numbers, 3 + Math.max(...numbers)].flat();
 
-console.log(part1(numbers), part2(numbers));
+console.log('Part 1:', part1(numbers));
+console.log('Part 2:', part2(numbers));

@@ -27,4 +27,5 @@ const part2 = numbers => threeSum(2020, numbers);
 
 const numbers = new Set(readLines('input.txt').map(Number));
 
-console.log(part1(numbers), part2(numbers));
+console.log('Part 1:', part1(numbers));
+console.log('Part 2:', part2(numbers));

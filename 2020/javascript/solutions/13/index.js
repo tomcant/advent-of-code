@@ -46,4 +46,5 @@ const part2 = busTimes => {
 
 const [[arrivalTime], busTimes] = readLines('input.txt').map(line => line.split(',').map(Number));
 
-console.log(part1(arrivalTime, busTimes), part2(busTimes));
+console.log('Part 1:', part1(arrivalTime, busTimes));
+console.log('Part 2:', part2(busTimes));

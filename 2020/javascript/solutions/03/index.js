@@ -15,4 +15,5 @@ const part2 = map => [[1, 1], [3, 1], [5, 1], [7, 1], [1, 2]].reduce(
 
 const map = readLines('input.txt');
 
-console.log(part1(map), part2(map));
+console.log('Part 1:', part1(map));
+console.log('Part 2:', part2(map));

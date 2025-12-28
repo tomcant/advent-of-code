@@ -26,4 +26,6 @@ const transform = (subject, loopSize) => {
   return result;
 };
 
-console.log(transform(cardKey, findLoopSize(doorKey)));
+const part1 = (cardKey, doorKey) => transform(cardKey, findLoopSize(doorKey));
+
+console.log('Part 1:', part1(cardKey, doorKey));

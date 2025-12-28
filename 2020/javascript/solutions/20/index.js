@@ -155,4 +155,5 @@ const tiles = arrangeTiles(
   ))
 );
 
-console.log(part1(tiles), part2(tiles));
+console.log('Part 1:', part1(tiles));
+console.log('Part 2:', part2(tiles));

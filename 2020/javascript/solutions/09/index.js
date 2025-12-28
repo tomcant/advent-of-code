@@ -45,4 +45,5 @@ const part2 = numbers => {
   return null;
 };
 
-console.log(part1(numbers), part2(numbers));
+console.log('Part 1:', part1(numbers));
+console.log('Part 2:', part2(numbers));

@@ -102,4 +102,5 @@ const part2 = instructions => {
 
 const instructions = readLines('input.txt').map(line => line.split(' = '));
 
-console.log(part1(instructions), part2(instructions));
+console.log('Part 1:', part1(instructions));
+console.log('Part 2:', part2(instructions));

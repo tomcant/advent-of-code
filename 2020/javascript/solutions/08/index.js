@@ -41,4 +41,5 @@ const part2 = ops => Object.entries(ops)
 
 const ops = readLines('input.txt').map(op => op.split(' ')).map(([op, arg]) => [op, +arg]);
 
-console.log(part1(ops), part2(ops));
+console.log('Part 1:', part1(ops));
+console.log('Part 2:', part2(ops));

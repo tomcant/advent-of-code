@@ -89,4 +89,5 @@ const grid = readLines('input.txt');
 const part1 = grid => countOccupiedSeats(findStableGrid(grid, countAdjacentOccupiedSeats, 4));
 const part2 = grid => countOccupiedSeats(findStableGrid(grid, countVisibleOccupiedSeats, 5));
 
-console.log(part1(grid), part2(grid));
+console.log('Part 1:', part1(grid));
+console.log('Part 2:', part2(grid));

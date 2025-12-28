@@ -111,4 +111,5 @@ const part2 = cups => {
 
 const cups = readRaw('input.txt').split('').map(Number);
 
-console.log(part1(cups), part2(cups));
+console.log('Part 1:', part1(cups));
+console.log('Part 2:', part2(cups));

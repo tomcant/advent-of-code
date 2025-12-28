@@ -35,4 +35,5 @@ const sumNodesInSubtree = (rules, searchColour) => Object.keys(rules[searchColou
 const part1 = rules => countRootNodesWithColourInSubtree(rules, 'shiny gold');
 const part2 = rules => sumNodesInSubtree(rules, 'shiny gold');
 
-console.log(part1(rules), part2(rules));
+console.log('Part 1:', part1(rules));
+console.log('Part 2:', part2(rules));

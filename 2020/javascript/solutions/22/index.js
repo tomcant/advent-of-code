@@ -39,4 +39,5 @@ const part2 = (p1deck, p2deck) => score(play(p1deck, p2deck, true).deck);
 
 const [[, ...p1deck], [, ...p2deck]] = readGroupedLines('input.txt').map(p => p.map(Number));
 
-console.log(part1([...p1deck], [...p2deck]), part2([...p1deck], [...p2deck]));
+console.log('Part 1:', part1([...p1deck], [...p2deck]));
+console.log('Part 2:', part2([...p1deck], [...p2deck]));
