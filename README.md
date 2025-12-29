@@ -11,7 +11,7 @@ My solutions to the [Advent of Code](https://adventofcode.com) programming puzzl
 - [Python](./2024/python/solutions) (13/25) ▓▓▓▓▓░░░░░ 52%
 
 ### 2023
-- [Python](./2023/python/solutions) (24/25) ▓▓▓▓▓▓▓▓▓░ 96%
+- [Python](./2023/python/solutions) (25/25) ▓▓▓▓▓▓▓▓▓▓ 100%
 
 ### 2022
 - [Python](./2022/python/solutions) (25/25) ▓▓▓▓▓▓▓▓▓▓ 100%
